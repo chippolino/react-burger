@@ -1,0 +1,62 @@
+/*Вариант если нужен скролл при фиксировнной высоте*/
+/*.listBurger > div {*/
+/*  margin-left: 32px;*/
+/*}*/
+
+/*.listIngredients {*/
+/*  max-width: 536px;*/
+/*  max-height: 480px;*/
+/*  overflow-y: auto;*/
+/*}*/
+/*-----------------end---------------*/
+
+.listBurger {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 316px);
+}
+
+.listBurger > div {
+  margin-left: 32px;
+  flex: 0 0 80px;
+}
+
+.listBurger > div:last-of-type {
+  margin-top: 16px;
+}
+
+.listIngredients {
+  max-width: 536px;
+  overflow-y: auto;
+}
+
+.itemIngredients {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.totalWrap {
+  max-width: 520px;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  justify-content: flex-end;
+}
+
+.total {
+  font-family: 'Iceland', monospace;
+  font-size: 48px;
+  line-height: 36px;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.total svg {
+  width: 36px;
+  height: 36px;
+}
