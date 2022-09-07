@@ -1,90 +1,67 @@
 import React from 'react'
-import styles from './burger-constructor.module.css'
+import styles from './burger-constructor.module.scss'
 import {
   Button,
   ConstructorElement,
-  CurrencyIcon,
-  DragIcon
+  CurrencyIcon
 } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import PropTypes from 'prop-types'
+import { ingredientPropTypes } from '../../utils/prop-types'
+import OrderDetails from '../order-details/order-details'
+import Ingredient from './ingredient/ingredient'
+import useModal from '../../hooks/use-modal'
+import { ingredientTypes } from '../../utils/ingredient-types'
 
 const BurgerConstructor = (props) => {
-  const { data } = props
+  const { ingredients } = props
+  const { isOpen, handleOpen, handleClose } = useModal()
 
-  const total = data.reduce((prev, current) => prev + current.price, 0)
+  const total = ingredients.reduce((prev, current) => prev + current.price, 0)
   return (
     <section className="pt-25">
       <ul className={styles.listBurger}>
         <ConstructorElement
           type="top"
           isLocked={true}
-          text={data[0].name + ' (вверх)'}
-          price={data[0].price}
-          thumbnail={data[0].image}
+          text={`${ingredients[0].name} (вверх)`}
+          price={ingredients[0].price}
+          thumbnail={ingredients[0].image}
         />
         <ul className={`customScrollbar ${styles.listIngredients}`}>
-          {data.map(
-            (i) => i.type !== 'bun' && <Ingredient data={i} key={i._id} />
+          {ingredients.map(
+            (i) =>
+              i.type !== ingredientTypes.bun && (
+                <Ingredient ingredient={i} key={i._id} />
+              )
           )}
         </ul>
 
         <ConstructorElement
           type="bottom"
           isLocked={true}
-          text={data[data.length - 1].name + ' (низ)'}
-          price={data[data.length - 1].price}
-          thumbnail={data[data.length - 1].image}
+          text={`${ingredients[0].name} (низ)`}
+          price={ingredients[0].price}
+          thumbnail={ingredients[0].image}
         />
       </ul>
       <div className={`mt-10 ${styles.totalWrap}`}>
-        <span className={styles.total}>
+        <span className={`text text_type_digits-medium ${styles.total}`}>
           {total}
           <CurrencyIcon type="primary" />
         </span>
-        <Button type="primary" size="large">
+        <Button type="primary" size="large" onClick={handleOpen}>
           Оформить заказ
         </Button>
       </div>
+
+      <OrderDetails handleClose={handleClose} isOpen={isOpen} />
     </section>
   )
 }
 
-const Ingredient = (props) => {
-  const { data } = props
-  return (
-    <li className={styles.itemIngredients}>
-      <DragIcon type="primary" />
-      <ConstructorElement
-        text={data.name}
-        price={data.price}
-        thumbnail={data.image}
-      />
-    </li>
-  )
-}
-
-const ingredientPropTypes = PropTypes.shape({
-  _id: PropTypes.string.isRequired,
-  name: PropTypes.string,
-  type: PropTypes.string,
-  proteins: PropTypes.number,
-  fat: PropTypes.number,
-  carbohydrates: PropTypes.number,
-  calories: PropTypes.number,
-  price: PropTypes.number,
-  image: PropTypes.string,
-  image_mobile: PropTypes.string,
-  image_large: PropTypes.string,
-  __v: PropTypes.number
-})
-
-Ingredient.protoTypes = {
-  data: ingredientPropTypes
-}
-
 BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(ingredientPropTypes)
+  ingredients: PropTypes.arrayOf(ingredientPropTypes)
 }
 
 export default BurgerConstructor

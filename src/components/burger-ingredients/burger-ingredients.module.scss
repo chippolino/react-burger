@@ -1,0 +1,27 @@
+/*Фиксированная высота листа бургеров*/
+/*.wrapper {*/
+/*  max-height: 664px;*/
+/*  overflow-y: auto;*/
+/*}*/
+/*------------конец-----------------*/
+
+.flex {
+  display: flex;
+  width: 100%;
+
+  > div {
+    flex: 0 0 33.333%;
+  }
+}
+
+.wrapper {
+  height: calc(100vh - 280px);
+  overflow-y: auto;
+}
+
+.list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}

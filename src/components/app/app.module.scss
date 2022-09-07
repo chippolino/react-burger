@@ -1,8 +1,8 @@
 .flex {
   display: flex;
   gap: 40px;
-}
 
-.flex > section {
-  width: 100%;
+  > section {
+    width: 100%;
+  }
 }

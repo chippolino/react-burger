@@ -1,26 +1,5 @@
-@font-face {
-  font-family: 'Iceland';
-  font-style: normal;
-  font-weight: 400;
-  src: url('./fonts/Iceland-Regular.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'JetBrains Mono';
-  font-style: normal;
-  font-weight: 400;
-  src: url('./fonts/JetBrainsMono-Regular.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'JetBrains Mono';
-  font-style: normal;
-  font-weight: 700;
-  src: url('./fonts/JetBrainsMono-Bold.woff2') format('woff2');
-}
-* {
-  box-sizing: border-box;
-}
+@import 'fonts';
+@import 'colors';
 
 body {
   margin: 0;
@@ -49,7 +28,7 @@ ol {
 /*Works on Firefox*/
 .customScrollbar {
   scrollbar-width: thin;
-  scrollbar-color: #8585ad #2f2f37;
+  scrollbar-color: $static-secondary-text $static-input;
 }
 
 /* Works on Chrome, Edge, and Safari */
@@ -58,10 +37,10 @@ ol {
 }
 
 .customScrollbar::-webkit-scrollbar-track {
-  background: #2f2f37;
+  background: $static-input;
 }
 
 .customScrollbar::-webkit-scrollbar-thumb {
-  background-color: #8585ad;
-  border: 1px solid #2f2f37;
+  background-color: $static-secondary-text;
+  border: 1px solid $static-input;
 }

@@ -14,15 +14,15 @@
   display: flex;
   flex-direction: column;
   height: calc(100vh - 316px);
-}
 
-.listBurger > div {
-  margin-left: 32px;
-  flex: 0 0 80px;
-}
+  > div {
+    margin-left: 32px;
+    flex: 0 0 80px;
 
-.listBurger > div:last-of-type {
-  margin-top: 16px;
+    &:last-of-type {
+      margin-top: 16px;
+    }
+  }
 }
 
 .listIngredients {
@@ -47,16 +47,14 @@
 }
 
 .total {
-  font-family: 'Iceland', monospace;
-  font-size: 48px;
-  line-height: 36px;
-
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.total svg {
-  width: 36px;
-  height: 36px;
+.total {
+  svg {
+    width: 36px;
+    height: 36px;
+  }
 }

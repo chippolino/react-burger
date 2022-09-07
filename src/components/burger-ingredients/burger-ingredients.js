@@ -1,100 +1,87 @@
 import React, { useState } from 'react'
-import styles from './burger-ingredients.module.css'
-import {
-  Tab,
-  Counter,
-  CurrencyIcon
-} from '@ya.praktikum/react-developer-burger-ui-components'
+import styles from './burger-ingredients.module.scss'
+import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import PropTypes from 'prop-types'
+import { ingredientPropTypes } from '../../utils/prop-types'
+import Ingredient from './ingredient/ingredient'
+import { ingredientTypes } from '../../utils/ingredient-types'
 
 const BurgerIngredients = (props) => {
-  const { data } = props
-  const [current, setCurrent] = useState('bun')
+  const { ingredients } = props
+  const [current, setCurrent] = useState(ingredientTypes.bun)
 
   return (
     <section className={`pt-10`}>
       <h1 className="text text_type_main-large">Соберите бургер</h1>
       <div className={`mt-5 ${styles.flex}`}>
-        <Tab value="bun" active={current === 'bun'} onClick={setCurrent}>
+        <Tab
+          value={ingredientTypes.bun}
+          active={current === ingredientTypes.bun}
+          onClick={setCurrent}
+        >
           Булки
         </Tab>
-        <Tab value="sauce" active={current === 'sauce'} onClick={setCurrent}>
+        <Tab
+          value={ingredientTypes.sauce}
+          active={current === ingredientTypes.sauce}
+          onClick={setCurrent}
+        >
           Соусы
         </Tab>
-        <Tab value="main" active={current === 'main'} onClick={setCurrent}>
+        <Tab
+          value={ingredientTypes.main}
+          active={current === ingredientTypes.main}
+          onClick={setCurrent}
+        >
           Начинки
         </Tab>
       </div>
 
       <div className={`customScrollbar ${styles.wrapper}`}>
-        <TypeIngredients type={'bun'} title="Булки" data={data} />
-        <TypeIngredients type={'sauce'} title="Соусы" data={data} />
-        <TypeIngredients type={'main'} title="Начинки" data={data} />
+        <TypeIngredients
+          type={ingredientTypes.bun}
+          title="Булки"
+          ingredients={ingredients}
+        />
+        <TypeIngredients
+          type={ingredientTypes.sauce}
+          title="Соусы"
+          ingredients={ingredients}
+        />
+        <TypeIngredients
+          type={ingredientTypes.main}
+          title="Начинки"
+          ingredients={ingredients}
+        />
       </div>
     </section>
   )
 }
 
 const TypeIngredients = (props) => {
-  const { data, type, title } = props
+  const { ingredients, type, title } = props
   return (
     <div className={`mt-10`}>
       <h3 className="text text_type_main-medium">{title}</h3>
       <ul className={`mt-6 ${styles.list} pl-4 pr-4`}>
-        {data
+        {ingredients
           .filter((i) => i.type === type)
           .map((i) => (
-            <Ingredient data={i} key={i._id} />
+            <Ingredient ingredient={i} key={i._id} />
           ))}
       </ul>
     </div>
   )
 }
 
-const Ingredient = (props) => {
-  const { data } = props
-  return (
-    <li className={styles.item}>
-      <Counter count={1} size="default" />
-      <img className={styles.itemImage} src={data.image_large} alt="" />
-      <span className={`${styles.itemPrice} mt-1`}>
-        {data.price}
-        <CurrencyIcon type="primary" />
-      </span>
-      <span className={`text text_type_main-default ${styles.itemText} mt-1`}>
-        {data.name}
-      </span>
-    </li>
-  )
-}
-
-const ingredientPropTypes = PropTypes.shape({
-  _id: PropTypes.string.isRequired,
-  name: PropTypes.string,
-  type: PropTypes.string,
-  proteins: PropTypes.number,
-  fat: PropTypes.number,
-  carbohydrates: PropTypes.number,
-  calories: PropTypes.number,
-  price: PropTypes.number,
-  image: PropTypes.string,
-  image_mobile: PropTypes.string,
-  image_large: PropTypes.string,
-  __v: PropTypes.number
-})
-
 TypeIngredients.propTypes = {
-  type: PropTypes.string,
-  title: PropTypes.string,
-  data: ingredientPropTypes
-}
-
-Ingredient.propTypes = {
-  data: ingredientPropTypes
+  type: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  ingredients: PropTypes.arrayOf(ingredientPropTypes).isRequired
 }
 
 BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(ingredientPropTypes)
+  ingredients: PropTypes.arrayOf(ingredientPropTypes)
 }
 
 export default BurgerIngredients
