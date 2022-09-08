@@ -35,11 +35,7 @@ const Ingredient = (props) => {
         </span>
       </li>
       <Modal isOpen={isOpen} handleClose={handleClose}>
-        <IngredientDetails
-          handleClose={handleClose}
-          isOpen={isOpen}
-          ingredient={ingredient}
-        />
+        <IngredientDetails ingredient={ingredient} />
       </Modal>
     </>
   )
