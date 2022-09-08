@@ -2,16 +2,23 @@ import Portal from '../portal/portal'
 import styles from './modal.module.scss'
 import { useEffect } from 'react'
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import ModalOverlay from '../modal-overlay/modal-overlay'
+import PropTypes from 'prop-types'
+
+const KEY_NAME_ESC = 'Escape'
+const KEY_EVENT_TYPE = 'keydown'
 
 const Modal = (props) => {
   const { children, isOpen, handleClose } = props
 
   useEffect(() => {
-    const closeOnEscapeKey = (e) => (e.key === 'Escape' ? handleClose() : null)
-    document.body.addEventListener('keydown', closeOnEscapeKey)
+    function closeOnEscapeKey(e) {
+      return e.key === KEY_NAME_ESC ? handleClose() : null
+    }
+    document.body.addEventListener(KEY_EVENT_TYPE, closeOnEscapeKey)
 
     return () => {
-      document.body.removeEventListener('keydown', closeOnEscapeKey)
+      document.body.removeEventListener(KEY_EVENT_TYPE, closeOnEscapeKey)
     }
   }, [handleClose])
 
@@ -20,7 +27,7 @@ const Modal = (props) => {
   return (
     <Portal wrapperId="modal-container">
       <div className={`${styles.modal} ${isOpen && styles.active}`}>
-        <div className={styles.overlay} onClick={handleClose} />
+        <ModalOverlay handleClose={handleClose} />
         <div className={styles.modalContent}>
           <button onClick={handleClose} className={styles.closeButton}>
             <CloseIcon type="primary" />
@@ -30,6 +37,11 @@ const Modal = (props) => {
       </div>
     </Portal>
   )
+}
+
+Modal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  handleClose: PropTypes.func.isRequired
 }
 
 export default Modal

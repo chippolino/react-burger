@@ -4,12 +4,7 @@ import AppHeader from '../app-header/app-header'
 import BurgerIngredients from '../burger-ingredients/burger-ingredients'
 import BurgerConstructor from '../burger-constructor/burger-constructor'
 import useFetch from '../../hooks/use-fetch'
-
-const URL_TO_API = 'https://norma.nomoreparties.space/api/ingredients'
-
-function loadingInitialData() {
-  return fetch(URL_TO_API)
-}
+import { loadingInitialData } from '../../utils/burger-api'
 
 function App() {
   const {

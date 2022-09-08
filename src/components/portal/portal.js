@@ -13,21 +13,21 @@ function Portal({ children, wrapperId = 'modal-wrapper' }) {
     document.getElementById(wrapperId)
   )
 
-  function initial() {
-    const element = document.getElementById(wrapperId)
-      ? document.getElementById(wrapperId)
-      : createWrapperAndAppendToBody(wrapperId)
+  useLayoutEffect(() => {
+    function initial() {
+      const element = document.getElementById(wrapperId)
+        ? document.getElementById(wrapperId)
+        : createWrapperAndAppendToBody(wrapperId)
 
-    setWrapperElement(element)
+      setWrapperElement(element)
 
-    return () => {
-      if (element.parentNode) {
-        element.parentNode.removeChild(element)
+      return () => {
+        if (element.parentNode) {
+          element.parentNode.removeChild(element)
+        }
       }
     }
-  }
 
-  useLayoutEffect(() => {
     initial()
   }, [wrapperId])
 

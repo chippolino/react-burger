@@ -7,6 +7,7 @@ import {
 import { ingredientPropTypes } from '../../../utils/prop-types'
 import IngredientDetails from '../../ingredient-details/ingredient-details'
 import useModal from '../../../hooks/use-modal'
+import Modal from '../../modal/modal'
 
 const Ingredient = (props) => {
   const { ingredient } = props
@@ -33,11 +34,13 @@ const Ingredient = (props) => {
           {ingredient.name}
         </span>
       </li>
-      <IngredientDetails
-        handleClose={handleClose}
-        isOpen={isOpen}
-        ingredient={ingredient}
-      />
+      <Modal isOpen={isOpen} handleClose={handleClose}>
+        <IngredientDetails
+          handleClose={handleClose}
+          isOpen={isOpen}
+          ingredient={ingredient}
+        />
+      </Modal>
     </>
   )
 }

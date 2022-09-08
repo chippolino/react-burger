@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import styles from './burger-constructor.module.scss'
 import {
   Button,
@@ -12,12 +12,17 @@ import OrderDetails from '../order-details/order-details'
 import Ingredient from './ingredient/ingredient'
 import useModal from '../../hooks/use-modal'
 import { ingredientTypes } from '../../utils/ingredient-types'
+import Modal from '../modal/modal'
 
 const BurgerConstructor = (props) => {
   const { ingredients } = props
   const { isOpen, handleOpen, handleClose } = useModal()
 
-  const total = ingredients.reduce((prev, current) => prev + current.price, 0)
+  const total = useMemo(
+    () => ingredients.reduce((prev, current) => prev + current.price, 0),
+    [ingredients]
+  )
+
   return (
     <section className="pt-25">
       <ul className={styles.listBurger}>
@@ -55,7 +60,9 @@ const BurgerConstructor = (props) => {
         </Button>
       </div>
 
-      <OrderDetails handleClose={handleClose} isOpen={isOpen} />
+      <Modal isOpen={isOpen} handleClose={handleClose}>
+        <OrderDetails />
+      </Modal>
     </section>
   )
 }
