@@ -34,9 +34,12 @@ const Ingredient = (props) => {
           {ingredient.name}
         </span>
       </li>
-      <Modal isOpen={isOpen} handleClose={handleClose}>
-        <IngredientDetails ingredient={ingredient} />
-      </Modal>
+
+      {isOpen && (
+        <Modal isOpen={isOpen} handleClose={handleClose}>
+          <IngredientDetails ingredient={ingredient} />
+        </Modal>
+      )}
     </>
   )
 }

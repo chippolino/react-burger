@@ -60,9 +60,11 @@ const BurgerConstructor = (props) => {
         </Button>
       </div>
 
-      <Modal isOpen={isOpen} handleClose={handleClose}>
-        <OrderDetails />
-      </Modal>
+      {isOpen && (
+        <Modal isOpen={isOpen} handleClose={handleClose}>
+          <OrderDetails />
+        </Modal>
+      )}
     </section>
   )
 }
