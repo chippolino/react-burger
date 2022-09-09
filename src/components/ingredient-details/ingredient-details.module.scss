@@ -1,0 +1,32 @@
+@import './src/styles/colors';
+
+.image {
+  max-width: 480px;
+  width: 100%;
+  margin: 0 auto;
+
+  img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+}
+
+.textDetails {
+  line-height: 64px;
+}
+
+.title {
+  text-align: center;
+}
+
+.list {
+  list-style: none;
+  display: grid;
+  justify-content: center;
+  text-align: center;
+  grid-template-columns: 120px repeat(3, 112px);
+  grid-gap: 20px;
+  color: $static-secondary-text;
+}

@@ -1,0 +1,18 @@
+@import './src/styles/colors';
+
+.root {
+  text-align: center;
+}
+
+.textDetails {
+  line-height: 64px;
+  height: 64px;
+}
+
+.orderNumber {
+  text-shadow: $static-text-shadow;
+}
+
+.smallText {
+  color: $static-secondary-text;
+}
