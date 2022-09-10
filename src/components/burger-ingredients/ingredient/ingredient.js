@@ -15,23 +15,27 @@ const Ingredient = (props) => {
 
   return (
     <>
-      <li className={styles.item} onClick={handleOpen}>
-        <Counter count={1} size="default" />
-        <img
-          className={styles.itemImage}
-          src={ingredient.image_large}
-          alt={ingredient.title}
-          width={240}
-          height={120}
-        />
-        <span
-          className={`${styles.itemPrice} mt-1 text text_type_digits-default`}
-        >
-          {ingredient.price}
-          <CurrencyIcon type="primary" />
-        </span>
-        <span className={`text text_type_main-default ${styles.itemText} mt-1`}>
-          {ingredient.name}
+      <li className={styles.item}>
+        <span className={styles.item} onClick={handleOpen}>
+          <Counter count={1} size="default" />
+          <img
+            className={styles.itemImage}
+            src={ingredient.image_large}
+            alt={ingredient.title}
+            width={240}
+            height={120}
+          />
+          <span
+            className={`${styles.itemPrice} mt-1 text text_type_digits-default`}
+          >
+            {ingredient.price}
+            <CurrencyIcon type="primary" />
+          </span>
+          <span
+            className={`text text_type_main-default ${styles.itemText} mt-1`}
+          >
+            {ingredient.name}
+          </span>
         </span>
       </li>
 

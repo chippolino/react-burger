@@ -3,8 +3,8 @@ import styles from './burger-ingredients.module.scss'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import PropTypes from 'prop-types'
 import { ingredientPropTypes } from '../../utils/prop-types'
-import Ingredient from './ingredient/ingredient'
 import { ingredientTypes } from '../../utils/ingredient-types'
+import TypeIngredients from './type-ingredients/type-ingredients'
 
 const BurgerIngredients = (props) => {
   const { ingredients } = props
@@ -56,28 +56,6 @@ const BurgerIngredients = (props) => {
       </div>
     </section>
   )
-}
-
-const TypeIngredients = (props) => {
-  const { ingredients, type, title } = props
-  return (
-    <div className={`mt-10`}>
-      <h3 className="text text_type_main-medium">{title}</h3>
-      <ul className={`mt-6 ${styles.list} pl-4 pr-4`}>
-        {ingredients
-          .filter((i) => i.type === type)
-          .map((i) => (
-            <Ingredient ingredient={i} key={i._id} />
-          ))}
-      </ul>
-    </div>
-  )
-}
-
-TypeIngredients.propTypes = {
-  type: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  ingredients: PropTypes.arrayOf(ingredientPropTypes).isRequired
 }
 
 BurgerIngredients.propTypes = {

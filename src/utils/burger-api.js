@@ -1,7 +1,7 @@
-const URL_TO_API = 'https://norma.nomoreparties.space/api/ingredients'
+const BASE_URL_API = 'https://norma.nomoreparties.space/api'
 
 function loadingInitialData() {
-  return fetch(URL_TO_API)
+  return fetch(`${BASE_URL_API}/ingredients`)
 }
 
 export { loadingInitialData }
