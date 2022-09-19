@@ -3,7 +3,7 @@ import DoneImage from '../../images/done.png'
 import { useSelector } from 'react-redux'
 
 const OrderDetails = () => {
-  const { order } = useSelector((state) => state.burgerConstructor.orderDetails)
+  const { order } = useSelector((state) => state.orderDetails.orderDetails)
   return (
     <div className={styles.root}>
       <p className={`text text_type_main-large ${styles.textDetails}`}></p>

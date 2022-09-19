@@ -26,12 +26,10 @@ const Ingredient = (props) => {
 
   const findIndex = useSelector(findIndexSelector(ingredient.uniqueId))
 
-  const originalIndex = findIndex
-
   const [{ isDragging }, drag] = useDrag(
     () => ({
       type: 'drag',
-      item: { ingredient, originalIndex },
+      item: { ingredient, findIndex },
       collect: (monitor) => ({
         isDragging: monitor.isDragging()
       }),
@@ -41,12 +39,12 @@ const Ingredient = (props) => {
           dispatch({
             type: DRAGGED_MOVE,
             currentItem: item,
-            overIndex: originalIndex.index
+            overIndex: findIndex.index
           })
         }
       }
     }),
-    [ingredient, originalIndex]
+    [ingredient, findIndex]
   )
 
   const [, drop] = useDrop(

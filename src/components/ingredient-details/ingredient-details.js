@@ -2,7 +2,7 @@ import styles from './ingredient-details.module.scss'
 import { useSelector } from 'react-redux'
 
 const IngredientDetails = () => {
-  const { currentModal } = useSelector((state) => state.burgerConstructor)
+  const { currentModal } = useSelector((state) => state.ingredientDetails)
 
   return (
     <div className={styles.root}>

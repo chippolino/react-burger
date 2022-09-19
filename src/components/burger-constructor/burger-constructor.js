@@ -12,15 +12,15 @@ import useModal from '../../hooks/use-modal'
 import Modal from '../modal/modal'
 import { useDispatch, useSelector } from 'react-redux'
 import { isOrderAvailable, totalCartSelector } from '../../services/selectors'
-import { sendOrder } from '../../services/actions/burger-constructor'
 import { useDrop } from 'react-dnd'
+import { sendOrder } from '../../services/actions/order-details'
 
 const BurgerConstructor = () => {
   const { isOpen, handleOpen, handleClose } = useModal()
   const dispatch = useDispatch()
   const { items, bun } = useSelector((store) => store.burgerConstructor.cart)
   const { orderDetails, orderDetailsRequest, orderDetailsFailed } = useSelector(
-    (store) => store.burgerConstructor
+    (store) => store.orderDetails
   )
 
   const total = useSelector(totalCartSelector)

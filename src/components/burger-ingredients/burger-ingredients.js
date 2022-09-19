@@ -6,7 +6,7 @@ import TypeIngredients from './type-ingredients/type-ingredients'
 import { useSelector } from 'react-redux'
 
 const BurgerIngredients = () => {
-  const { menu } = useSelector((store) => store.burgerConstructor)
+  const { menu } = useSelector((store) => store.ingredients)
 
   const mainRef = useRef(null)
   const bunRef = useRef(null)
@@ -16,7 +16,7 @@ const BurgerIngredients = () => {
 
   useEffect(() => {
     let observer
-    if (mainRef.current && bunRef.current && sauceRef.current) {
+    if (!!mainRef.current && !!bunRef.current && !!sauceRef.current) {
       const options = {
         rootMargin: '-40% 0px -60%'
       }

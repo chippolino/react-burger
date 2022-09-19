@@ -9,14 +9,14 @@ import IngredientDetails from '../../ingredient-details/ingredient-details'
 import useModal from '../../../hooks/use-modal'
 import Modal from '../../modal/modal'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-  ADD_DATA_TO_MODAL,
-  ADD_INGREDIENT,
-  REMOVE_DATA_MODAL
-} from '../../../services/actions/burger-constructor'
+import { addIngredient } from '../../../services/actions/burger-constructor'
 import { usedCountSelector } from '../../../services/selectors'
 import { useDrag } from 'react-dnd'
 import { v4 as uuid } from 'uuid'
+import {
+  ADD_DATA_TO_MODAL,
+  REMOVE_DATA_MODAL
+} from '../../../services/actions/ingredient-details'
 
 const Ingredient = (props) => {
   const { ingredient } = props
@@ -25,11 +25,11 @@ const Ingredient = (props) => {
   const dispatch = useDispatch()
   const uniqueId = uuid()
   const handleClick = () => {
-    dispatch({ type: ADD_INGREDIENT, payload: ingredient._id, uniqueId })
+    dispatch(addIngredient(ingredient._id, uniqueId))
   }
 
   const handleOpenModal = () => {
-    dispatch({ type: ADD_DATA_TO_MODAL, payload: ingredient._id })
+    dispatch({ type: ADD_DATA_TO_MODAL, payload: ingredient })
     handleOpen()
   }
 

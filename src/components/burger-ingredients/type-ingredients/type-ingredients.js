@@ -4,8 +4,7 @@ import Ingredient from '../ingredient/ingredient'
 import PropTypes from 'prop-types'
 import { ingredientPropTypes } from '../../../utils/prop-types'
 
-const TypeIngredients = forwardRef((props, ref) => {
-  const { ingredients, type, title } = props
+const TypeIngredients = forwardRef(({ ingredients, type, title }, ref) => {
   return (
     <div className={`mt-10`} ref={ref} id={type}>
       <h3 className="text text_type_main-medium">{title}</h3>
