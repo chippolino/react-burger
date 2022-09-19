@@ -3,20 +3,21 @@ import styles from './app.module.scss'
 import AppHeader from '../app-header/app-header'
 import BurgerIngredients from '../burger-ingredients/burger-ingredients'
 import BurgerConstructor from '../burger-constructor/burger-constructor'
-import useFetch from '../../hooks/use-fetch'
-import { loadingInitialData } from '../../utils/burger-api'
+import { useDispatch, useSelector } from 'react-redux'
+import { getMenu } from '../../services/actions/burger-constructor'
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
 
 function App() {
-  const {
-    isLoading,
-    hasError,
-    data: ingredients,
-    execute: getIngredients
-  } = useFetch(loadingInitialData)
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    getIngredients()
+    dispatch(getMenu())
   }, [])
+
+  const { menu, menuRequest, menuFailed } = useSelector(
+    (state) => state.burgerConstructor
+  )
 
   return (
     <div className="App">
@@ -24,14 +25,16 @@ function App() {
       <main>
         <div className="container">
           <article className={styles.flex}>
-            {isLoading && 'Загрузка...'}
-            {hasError && 'Произошла ошибка'}
-            {!isLoading && !hasError && ingredients?.data.length && (
-              <>
-                <BurgerIngredients ingredients={ingredients.data} />
-                <BurgerConstructor ingredients={ingredients.data} />
-              </>
-            )}
+            <DndProvider backend={HTML5Backend}>
+              {menuRequest && 'Загрузка...'}
+              {menuFailed && 'Произошла ошибка'}
+              {!menuRequest && !menuFailed && menu.length && (
+                <>
+                  <BurgerIngredients />
+                  <BurgerConstructor />
+                </>
+              )}
+            </DndProvider>
           </article>
         </div>
       </main>

@@ -1,14 +1,46 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styles from './burger-ingredients.module.scss'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
-import PropTypes from 'prop-types'
-import { ingredientPropTypes } from '../../utils/prop-types'
 import { ingredientTypes } from '../../utils/ingredient-types'
 import TypeIngredients from './type-ingredients/type-ingredients'
+import { useSelector } from 'react-redux'
 
-const BurgerIngredients = (props) => {
-  const { ingredients } = props
+const BurgerIngredients = () => {
+  const { menu } = useSelector((store) => store.burgerConstructor)
+
+  const mainRef = useRef(null)
+  const bunRef = useRef(null)
+  const sauceRef = useRef(null)
+
   const [current, setCurrent] = useState(ingredientTypes.bun)
+
+  useEffect(() => {
+    let observer
+    if (mainRef.current && bunRef.current && sauceRef.current) {
+      const options = {
+        rootMargin: '-40% 0px -60%'
+      }
+      observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            handleClick(entry.target.id)
+          }
+        })
+      }, options)
+      observer.observe(bunRef.current)
+      observer.observe(sauceRef.current)
+      observer.observe(mainRef.current)
+    }
+    return () => observer.disconnect()
+  }, [mainRef, sauceRef, bunRef])
+
+  const handleClick = (value) => {
+    setCurrent(value)
+  }
+
+  const handleTabClick = (ref) => {
+    ref.current.scrollIntoView()
+  }
 
   return (
     <section className={`pt-10`}>
@@ -17,21 +49,21 @@ const BurgerIngredients = (props) => {
         <Tab
           value={ingredientTypes.bun}
           active={current === ingredientTypes.bun}
-          onClick={setCurrent}
+          onClick={() => handleTabClick(bunRef)}
         >
           Булки
         </Tab>
         <Tab
           value={ingredientTypes.sauce}
           active={current === ingredientTypes.sauce}
-          onClick={setCurrent}
+          onClick={() => handleTabClick(sauceRef)}
         >
           Соусы
         </Tab>
         <Tab
           value={ingredientTypes.main}
           active={current === ingredientTypes.main}
-          onClick={setCurrent}
+          onClick={() => handleTabClick(mainRef)}
         >
           Начинки
         </Tab>
@@ -41,25 +73,24 @@ const BurgerIngredients = (props) => {
         <TypeIngredients
           type={ingredientTypes.bun}
           title="Булки"
-          ingredients={ingredients}
+          ingredients={menu}
+          ref={bunRef}
         />
         <TypeIngredients
           type={ingredientTypes.sauce}
           title="Соусы"
-          ingredients={ingredients}
+          ingredients={menu}
+          ref={sauceRef}
         />
         <TypeIngredients
           type={ingredientTypes.main}
           title="Начинки"
-          ingredients={ingredients}
+          ingredients={menu}
+          ref={mainRef}
         />
       </div>
     </section>
   )
-}
-
-BurgerIngredients.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientPropTypes)
 }
 
 export default BurgerIngredients

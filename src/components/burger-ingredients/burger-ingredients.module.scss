@@ -16,5 +16,6 @@
 
 .wrapper {
   height: calc(100vh - 280px);
+  scroll-behavior: smooth;
   overflow-y: auto;
 }

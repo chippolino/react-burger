@@ -1,3 +1,4 @@
+@import './src/styles/colors';
 /*Вариант если нужен скролл при фиксировнной высоте*/
 /*.listBurger > div {*/
 /*  margin-left: 32px;*/
@@ -14,20 +15,37 @@
   display: flex;
   flex-direction: column;
   height: calc(100vh - 316px);
+  list-style-type: none;
+}
 
-  > div {
-    margin-left: 32px;
-    flex: 0 0 80px;
+.itemBurger {
+  margin-left: 32px;
+  flex: 0 0 80px;
+  max-width: 488px;
+  width: 100%;
+  background: $static-element-bg;
+  border-radius: $border-top-radius;
 
-    &:last-of-type {
-      margin-top: 16px;
-    }
+  &:last-of-type {
+    margin-top: auto;
   }
+}
+
+.listBottomBurger {
+  border-radius: $border-bottom-radius;
 }
 
 .listIngredients {
   max-width: 536px;
   overflow-y: auto;
+  margin: 16px 0;
+  min-height: calc(100% - 160px);
+  border-top-right-radius: $border-static-radius;
+  border-bottom-right-radius: $border-static-radius;
+
+  > li:first-of-type {
+    margin-top: 0;
+  }
 }
 
 .itemIngredients {
@@ -38,12 +56,25 @@
   margin-top: 16px;
 }
 
+.dragArea {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 24px;
+  height: 70px;
+  cursor: move;
+}
+
 .totalWrap {
   max-width: 520px;
   display: flex;
   align-items: center;
   gap: 40px;
   justify-content: flex-end;
+
+  button {
+    min-width: 215px;
+  }
 }
 
 .total {
@@ -57,4 +88,16 @@
     width: 36px;
     height: 36px;
   }
+}
+
+.error {
+  color: $static-error;
+}
+
+.canDrop {
+  background: $static-disabled-text;
+}
+
+.isActive {
+  background: $static-success;
 }
