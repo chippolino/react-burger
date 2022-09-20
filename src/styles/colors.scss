@@ -4,6 +4,7 @@ $static-disabled-text: #3a3a55;
 
 $static-modal-bg: #1c1c21;
 $static-bg: #131316;
+$static-element-bg: #2f2f37;
 
 $static-accent: #4c4cff;
 $static-success: #00cccc;
@@ -15,3 +16,7 @@ $static-text-shadow: 0 0 16px rgba(51, 51, 255, 0.25),
 $static-box-shadow: 0 24px 32px rgba(0, 0, 0, 0.04),
   0 16px 24px rgba(0, 0, 0, 0.04), 0 4px 8px rgba(0, 0, 0, 0.04),
   0 0 1px rgba(0, 0, 0, 0.04);
+
+$border-bottom-radius: 40px 40px 88px 88px;
+$border-top-radius: 88px 88px 40px 40px;
+$border-static-radius: 40px;

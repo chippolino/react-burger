@@ -16,12 +16,6 @@
 
 .wrapper {
   height: calc(100vh - 280px);
+  scroll-behavior: smooth;
   overflow-y: auto;
-}
-
-.list {
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 24px;
 }
