@@ -9,7 +9,7 @@ import IngredientDetails from '../../ingredient-details/ingredient-details'
 import useModal from '../../../hooks/use-modal'
 import Modal from '../../modal/modal'
 import { useDispatch, useSelector } from 'react-redux'
-import { addIngredient } from '../../../services/actions/burger-constructor'
+import { ADD_INGREDIENT } from '../../../services/actions/burger-constructor'
 import { usedCountSelector } from '../../../services/selectors'
 import { useDrag } from 'react-dnd'
 import { v4 as uuid } from 'uuid'
@@ -25,7 +25,11 @@ const Ingredient = (props) => {
   const dispatch = useDispatch()
   const uniqueId = uuid()
   const handleClick = () => {
-    dispatch(addIngredient(ingredient._id, uniqueId))
+    dispatch({
+      type: ADD_INGREDIENT,
+      ingredient: ingredient,
+      uniqueId: uniqueId
+    })
   }
 
   const handleOpenModal = () => {
