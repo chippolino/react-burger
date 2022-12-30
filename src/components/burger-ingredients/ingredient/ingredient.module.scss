@@ -1,3 +1,5 @@
+@import './src/styles/colors';
+
 .item {
   position: relative;
   display: flex;
@@ -7,6 +9,7 @@
   width: 100%;
   flex: 0 0 calc(50% - 12px);
   cursor: pointer;
+  color: $static-primary-color;
 }
 
 .itemImage {

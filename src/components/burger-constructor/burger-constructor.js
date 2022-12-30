@@ -14,22 +14,29 @@ import { useDispatch, useSelector } from 'react-redux'
 import { isOrderAvailable, totalCartSelector } from '../../services/selectors'
 import { useDrop } from 'react-dnd'
 import { sendOrder } from '../../services/actions/order-details'
+import { useHistory } from 'react-router-dom'
 
 const BurgerConstructor = () => {
   const { isOpen, handleOpen, handleClose } = useModal()
   const dispatch = useDispatch()
   const { items, bun } = useSelector((store) => store.burgerConstructor.cart)
+  const user = useSelector((state) => state.user.data)
   const { orderDetails, orderDetailsRequest, orderDetailsFailed } = useSelector(
     (store) => store.orderDetails
   )
+  const history = useHistory()
 
   const total = useSelector(totalCartSelector)
 
   const isOrder = useSelector(isOrderAvailable)
 
   const handleSendOrder = () => {
-    dispatch(sendOrder())
-    handleOpen()
+    if (user) {
+      dispatch(sendOrder())
+      handleOpen()
+    } else {
+      history.replace({ pathname: '/login' })
+    }
   }
 
   const [{ isOver, canDrop }, dropTarget] = useDrop({
@@ -101,6 +108,7 @@ const BurgerConstructor = () => {
           <CurrencyIcon type="primary" />
         </span>
         <Button
+          htmlType="button"
           type="primary"
           size="large"
           onClick={() => handleSendOrder()}

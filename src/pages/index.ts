@@ -1,0 +1,7 @@
+export * from './main/main'
+export * from './forgot-password/forgot-password'
+export * from './login/login'
+export * from './profile/profile'
+export * from './register/register'
+export * from './reset-password/reset-password'
+export * from './not-found/not-found'

@@ -15,11 +15,95 @@ ol {
   margin: 0;
 }
 
+a {
+  text-decoration: none;
+  color: $static-accent;
+  transition: color .3s ease-in, opacity .3s ease-in;
+
+  &:hover {
+    color: $static-primary-text;
+    opacity: 0.9;
+  }
+}
+
+.app {
+  max-height: 100vh;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 .container {
   max-width: 1280px;
   padding: 0 20px;
   width: 100%;
   margin: 0 auto;
+}
+
+.loginBox {
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
+  margin: 0 auto;
+
+  > div {
+    width: 100%;
+  }
+
+  .input {
+    width: 100%;
+  }
+
+  &__flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+}
+
+.flex {
+  display: flex;
+  gap: 40px;
+
+  > section {
+    width: 100%;
+  }
+}
+
+.row {
+  display: flex;
+  gap: 60px;
+
+  .link {
+    display: block;
+    padding: 17px 0;
+    color: $static-secondary-text;
+
+    &.active,
+    &:hover {
+      color: $static-primary-text;
+    }
+  }
+}
+
+.col {
+  flex: 0 0 320px
+}
+
+.col-2 {
+  flex: 0 0 480px
+}
+
+.wrapBtn {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.logout {
+  border: none;
+  background: none;
+  cursor: pointer;
 }
 
 /*custom scrollbar*/
