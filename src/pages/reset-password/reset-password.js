@@ -34,7 +34,7 @@ export const ResetPassword = () => {
 
   return (
     <div className="container pt-15">
-      <div className="loginBox mt-30">
+      <form className="loginBox mt-30" onSubmit={handleSubmit}>
         <p className="text text_type_main-medium">Восстановление пароля</p>
         <div className="mt-6"></div>
 
@@ -54,12 +54,7 @@ export const ResetPassword = () => {
           size={'default'}
         />
         <div className="mt-6"></div>
-        <Button
-          type="primary"
-          size="medium"
-          htmlType="button"
-          onClick={(e) => handleSubmit(e)}
-        >
+        <Button type="primary" size="medium" htmlType="submit">
           Сохранить
         </Button>
         <div className="loginBox__flex mt-20">
@@ -70,7 +65,7 @@ export const ResetPassword = () => {
             Войти
           </Link>
         </div>
-      </div>
+      </form>
     </div>
   )
 }

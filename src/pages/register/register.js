@@ -76,7 +76,7 @@ export const Register = () => {
           )}
         </div>
         <Button
-          htmlType="button"
+          htmlType="submit"
           type="primary"
           size="medium"
           disabled={registerUserRequest}

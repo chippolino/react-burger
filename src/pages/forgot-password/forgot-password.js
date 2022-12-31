@@ -30,7 +30,7 @@ export const ForgotPassword = () => {
 
   return (
     <div className="container pt-15">
-      <div className="loginBox mt-30">
+      <form className="loginBox mt-30" onSubmit={handleSubmit}>
         <p className="text text_type_main-medium">Восстановление пароля</p>
         <div className="mt-6"></div>
         <Input
@@ -45,12 +45,7 @@ export const ForgotPassword = () => {
         />
 
         <div className="mt-6"></div>
-        <Button
-          type="primary"
-          size="medium"
-          htmlType="button"
-          onClick={(e) => handleSubmit(e)}
-        >
+        <Button type="primary" size="medium" htmlType="submit">
           Восстановить
         </Button>
         <div className="loginBox__flex mt-20">
@@ -61,7 +56,7 @@ export const ForgotPassword = () => {
             Войти
           </Link>
         </div>
-      </div>
+      </form>
     </div>
   )
 }

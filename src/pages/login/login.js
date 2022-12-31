@@ -28,7 +28,7 @@ export const Login = () => {
 
   return (
     <div className="container pt-15">
-      <form className="loginBox mt-30">
+      <form className="loginBox mt-30" onSubmit={handleSubmit}>
         <p className="text text_type_main-medium">Вход</p>
         <div className="mt-6"></div>
         <Input
@@ -53,10 +53,9 @@ export const Login = () => {
         />
         <div className="mt-6"></div>
         <Button
-          htmlType="button"
+          htmlType="submit"
           type="primary"
           size="medium"
-          onClick={handleSubmit}
           disabled={loginUserRequest}
         >
           {loginUserRequest ? <LoaderIcon /> : 'Войти'}
