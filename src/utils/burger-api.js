@@ -35,6 +35,9 @@ const fetchWithRefresh = async (url, options) => {
   } catch (err) {
     if (err.message === 'jwt expired') {
       const refreshData = await refreshToken()
+      if (!refreshData.success) {
+        return Promise.reject(refreshData)
+      }
       localStorage.setItem('refreshToken', refreshData.refreshToken)
       setCookie('accessToken', refreshData.accessToken)
       options.headers.authorization = refreshData.accessToken
@@ -84,11 +87,12 @@ const logoutUser = () => {
 }
 
 const getUser = () => {
+  console.log('get user')
   return fetchWithRefresh(`${BASE_URL_API}/auth/user`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
-      Authorization: getCookie('accessToken')
+      authorization: getCookie('accessToken')
     }
   })
 }
@@ -98,7 +102,7 @@ const updateUser = (data) => {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
-      Authorization: getCookie('accessToken')
+      authorization: getCookie('accessToken')
     },
     body: JSON.stringify(data)
   })

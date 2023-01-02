@@ -11,7 +11,11 @@ export const ResetPassword = () => {
   const [tokenValue, setTokenValue] = useState('')
   const [passwordValue, setPasswordValue] = useState('')
   const location = useLocation()
+  const { state } = location
   const history = useHistory()
+
+  console.log(location)
+  console.log(state)
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -28,8 +32,8 @@ export const ResetPassword = () => {
     })
   }
 
-  if (!location.state?.resetDone) {
-    return <Redirect to={location.state.from || '/'} />
+  if (!location?.state?.resetDone) {
+    return <Redirect to={location?.state?.from || '/'} />
   }
 
   return (

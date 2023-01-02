@@ -132,7 +132,7 @@ export const Profile = () => {
             Профиль
           </NavLink>
           <NavLink
-            to="/order:id"
+            to="/profile/orders"
             className="link text text_color_inactive text_type_main-medium"
           >
             История заказов
