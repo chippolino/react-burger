@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { FormEvent, useState } from 'react'
 import {
   Button,
   Input,
@@ -7,17 +7,18 @@ import {
 import { Link, Redirect, useHistory, useLocation } from 'react-router-dom'
 import { resetPassword } from '../../utils/burger-api'
 
+type TUseLocation = {
+  resetDone: string
+  from: string
+}
+
 export const ResetPassword = () => {
   const [tokenValue, setTokenValue] = useState('')
   const [passwordValue, setPasswordValue] = useState('')
-  const location = useLocation()
-  const { state } = location
+  const location = useLocation<TUseLocation>()
   const history = useHistory()
 
-  console.log(location)
-  console.log(state)
-
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
     const data = {
       password: passwordValue,

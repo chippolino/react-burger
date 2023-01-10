@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'
 import { Route, Switch, useHistory, useLocation } from 'react-router-dom'
 import {
-  Login,
-  Register,
   ForgotPassword,
-  ResetPassword,
-  Profile,
+  Login,
   Main,
-  NotFound
+  NotFound,
+  Profile,
+  Register,
+  ResetPassword
 } from '../../pages/'
 import { PageLayout } from '../page-layout/page-layout'
 import { useDispatch } from 'react-redux'
@@ -17,14 +17,20 @@ import { getMenu } from '../../services/actions/ingredients'
 import { ProtectedRoute } from '../protected-route/protected-route'
 import { checkUserAuth } from '../../services/actions/user'
 
+type TLocationState = {
+  background: any
+}
+
 function App() {
   const dispatch = useDispatch()
   const history = useHistory()
-  const location = useLocation()
+  const location = useLocation<TLocationState>()
 
   useEffect(() => {
+    // @ts-ignore
     dispatch(getMenu())
 
+    // @ts-ignore
     dispatch(checkUserAuth())
   }, [dispatch])
 

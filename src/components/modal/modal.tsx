@@ -1,18 +1,23 @@
 import Portal from '../portal/portal'
 import styles from './modal.module.scss'
-import { useEffect } from 'react'
+import { FC, ReactNode, useEffect } from 'react'
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import ModalOverlay from '../modal-overlay/modal-overlay'
-import PropTypes from 'prop-types'
 
 const KEY_NAME_ESC = 'Escape'
 const KEY_EVENT_TYPE = 'keydown'
 
-const Modal = (props) => {
+type TModal = {
+  isOpen: boolean
+  handleClose: () => void
+  children: ReactNode
+}
+
+const Modal: FC<TModal> = (props) => {
   const { children, isOpen, handleClose } = props
 
   useEffect(() => {
-    function closeOnEscapeKey(e) {
+    function closeOnEscapeKey(e: KeyboardEvent) {
       return e.key === KEY_NAME_ESC ? handleClose() : null
     }
     document.body.addEventListener(KEY_EVENT_TYPE, closeOnEscapeKey)
@@ -37,11 +42,6 @@ const Modal = (props) => {
       </div>
     </Portal>
   )
-}
-
-Modal.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  handleClose: PropTypes.func.isRequired
 }
 
 export default Modal

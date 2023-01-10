@@ -15,14 +15,17 @@ import { isOrderAvailable, totalCartSelector } from '../../services/selectors'
 import { useDrop } from 'react-dnd'
 import { sendOrder } from '../../services/actions/order-details'
 import { useHistory } from 'react-router-dom'
+import { TIngredientPropTypes } from '../../utils/prop-types'
 
 const BurgerConstructor = () => {
   const { isOpen, handleOpen, handleClose } = useModal()
   const dispatch = useDispatch()
-  const { items, bun } = useSelector((store) => store.burgerConstructor.cart)
-  const user = useSelector((state) => state.user.data)
+  const { items, bun } = useSelector(
+    (store: any) => store.burgerConstructor.cart
+  )
+  const user = useSelector((state: any) => state.user.data)
   const { orderDetails, orderDetailsRequest, orderDetailsFailed } = useSelector(
-    (store) => store.orderDetails
+    (store: any) => store.orderDetails
   )
   const history = useHistory()
 
@@ -32,6 +35,7 @@ const BurgerConstructor = () => {
 
   const handleSendOrder = () => {
     if (user) {
+      // @ts-ignore
       dispatch(sendOrder())
       handleOpen()
     } else {
@@ -80,7 +84,7 @@ const BurgerConstructor = () => {
           } ${isActive && styles.isActive}`}
           ref={drop}
         >
-          {items.map((i) => {
+          {items.map((i: TIngredientPropTypes) => {
             return <Ingredient ingredient={i} key={i.uniqueId} />
           })}
         </ul>

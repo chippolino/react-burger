@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
 import {
-  Input,
-  Button
+  Button,
+  Input
 } from '@ya.praktikum/react-developer-burger-ui-components'
 import { NavLink } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout, update } from '../../services/actions/user'
 
-const useOutsideClick = (callback) => {
-  const ref = React.useRef()
+const useOutsideClick = (callback: () => void) => {
+  const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const handleClick = (event) => {
-      if (ref.current && !ref.current?.contains(event.target)) {
+    const handleClick = (event: Event) => {
+      if (ref.current && !ref.current?.contains(event.target as HTMLElement)) {
         callback()
       }
     }
@@ -28,10 +28,10 @@ const useOutsideClick = (callback) => {
 }
 
 export const Profile = () => {
-  const { data, updateUserError } = useSelector((store) => store.user)
-  const nameRef = React.useRef(null)
-  const emailRef = React.useRef(null)
-  const passwordRef = React.useRef(null)
+  const { data, updateUserError } = useSelector((store: any) => store.user)
+  const nameRef = useRef<HTMLInputElement>(null)
+  const emailRef = useRef<HTMLInputElement>(null)
+  const passwordRef = useRef<HTMLInputElement>(null)
 
   const initialData = {
     name: data.name,
@@ -48,7 +48,7 @@ export const Profile = () => {
   const [disabled, setDisabled] = useState(disabledData)
   const [formData, setFormData] = useState(initialData)
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name
     const value = e.target.value
     setFormData({
@@ -60,24 +60,25 @@ export const Profile = () => {
   const dispatch = useDispatch()
 
   const handleLogout = () => {
+    // @ts-ignore
     dispatch(logout())
   }
 
-  const onIconClick = (current) => {
+  const onIconClick = (current: string) => {
     switch (current) {
       case 'name': {
         setDisabled({ ...disabled, name: !disabled.name })
-        setTimeout(() => nameRef.current.focus(), 0)
+        setTimeout(() => nameRef.current!.focus(), 0)
         break
       }
       case 'email': {
         setDisabled({ ...disabled, email: !disabled.email })
-        setTimeout(() => emailRef.current.focus(), 0)
+        setTimeout(() => emailRef.current!.focus(), 0)
         break
       }
       case 'password': {
         setDisabled({ ...disabled, password: !disabled.password })
-        setTimeout(() => passwordRef.current.focus(), 0)
+        setTimeout(() => passwordRef.current!.focus(), 0)
         break
       }
       default: {
@@ -109,6 +110,7 @@ export const Profile = () => {
       data = { ...data, password: formData.password }
     }
 
+    // @ts-ignore
     dispatch(update(data))
     if (updateUserError) {
       cancelChange()

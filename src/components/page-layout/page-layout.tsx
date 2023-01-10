@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import AppHeader from '../app-header/app-header'
 
-interface Props {
+type Props = {
   children?: ReactNode
 }
 

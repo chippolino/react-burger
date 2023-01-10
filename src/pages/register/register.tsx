@@ -4,7 +4,7 @@ import {
   PasswordInput
 } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Link } from 'react-router-dom'
-import React, { useState } from 'react'
+import React, { ChangeEvent, FormEvent, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { register } from '../../services/actions/user'
 import { ReactComponent as LoaderIcon } from '../../images/loader.svg'
@@ -19,17 +19,18 @@ export const Register = () => {
   const dispatch = useDispatch()
   const [formData, setFormData] = useState(initialFormData)
   const { registerUserRequest, registerUserError, registerUserFailed } =
-    useSelector((store) => store.user)
+    useSelector((store: any) => store.user)
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
+    // @ts-ignore
     dispatch(register(formData))
   }
 

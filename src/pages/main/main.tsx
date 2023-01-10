@@ -7,7 +7,7 @@ import BurgerConstructor from '../../components/burger-constructor/burger-constr
 
 export const Main = () => {
   const { menu, menuRequest, menuFailed } = useSelector(
-    (store) => store.ingredients
+    (store: any) => store.ingredients
   )
 
   return (

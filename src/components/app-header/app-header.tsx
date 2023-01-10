@@ -13,7 +13,7 @@ const AppHeader = () => {
   const isConstructor = !!useRouteMatch({ path: '/', exact: true })
   const isFeed = !!useRouteMatch('/feed')
   const isProfile = !!useRouteMatch('/profile')
-  const user = useSelector((state) => state.user.data)
+  const user = useSelector((state: any) => state.user.data)
 
   return (
     <header className={`pt-4 pb-4 ${styles.header}`}>

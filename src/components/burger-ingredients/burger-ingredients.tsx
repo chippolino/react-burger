@@ -6,16 +6,16 @@ import TypeIngredients from './type-ingredients/type-ingredients'
 import { useSelector } from 'react-redux'
 
 const BurgerIngredients = () => {
-  const { menu } = useSelector((store) => store.ingredients)
+  const { menu } = useSelector((store: any) => store.ingredients)
 
-  const mainRef = useRef(null)
-  const bunRef = useRef(null)
-  const sauceRef = useRef(null)
+  const mainRef = useRef<HTMLDivElement>(null)
+  const bunRef = useRef<HTMLDivElement>(null)
+  const sauceRef = useRef<HTMLDivElement>(null)
 
   const [current, setCurrent] = useState(ingredientTypes.bun)
 
   useEffect(() => {
-    let observer
+    let observer: IntersectionObserver
     if (!!mainRef.current && !!bunRef.current && !!sauceRef.current) {
       const options = {
         rootMargin: '-40% 0px -60%'
@@ -34,12 +34,12 @@ const BurgerIngredients = () => {
     return () => observer.disconnect()
   }, [mainRef, sauceRef, bunRef])
 
-  const handleClick = (value) => {
+  const handleClick = (value: string) => {
     setCurrent(value)
   }
 
-  const handleTabClick = (ref) => {
-    ref.current.scrollIntoView()
+  const handleTabClick = (ref: React.RefObject<HTMLDivElement>) => {
+    ref.current!.scrollIntoView()
   }
 
   return (

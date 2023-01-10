@@ -3,7 +3,7 @@ import {
   Input
 } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Link, useHistory, useLocation } from 'react-router-dom'
-import React, { useState } from 'react'
+import React, { FormEvent, useState } from 'react'
 import { forgotPassword } from '../../utils/burger-api'
 
 export const ForgotPassword = () => {
@@ -11,7 +11,7 @@ export const ForgotPassword = () => {
   const history = useHistory()
   const location = useLocation()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
     const data = {
       email: emailValue

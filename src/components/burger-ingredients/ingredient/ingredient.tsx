@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { FC } from 'react'
 import styles from './ingredient.module.scss'
 import {
   Counter,
   CurrencyIcon
 } from '@ya.praktikum/react-developer-burger-ui-components'
-import { ingredientPropTypes } from '../../../utils/prop-types'
+import { TIngredientPropTypes } from '../../../utils/prop-types'
 import IngredientDetails from '../../ingredient-details/ingredient-details'
 import useModal from '../../../hooks/use-modal'
 import Modal from '../../modal/modal'
@@ -16,7 +16,11 @@ import { v4 as uuid } from 'uuid'
 import { REMOVE_DATA_MODAL } from '../../../services/actions/ingredient-details'
 import { Link, useLocation } from 'react-router-dom'
 
-const Ingredient = (props) => {
+type TIngredient = {
+  ingredient: TIngredientPropTypes
+}
+
+const Ingredient: FC<TIngredient> = (props) => {
   const { ingredient } = props
   const { isOpen, handleClose } = useModal()
 
@@ -89,15 +93,11 @@ const Ingredient = (props) => {
 
       {isOpen && (
         <Modal isOpen={isOpen} handleClose={handleCloseModal}>
-          <IngredientDetails ingredient={ingredient} />
+          <IngredientDetails />
         </Modal>
       )}
     </>
   )
-}
-
-Ingredient.propTypes = {
-  ingredient: ingredientPropTypes.isRequired
 }
 
 export default Ingredient

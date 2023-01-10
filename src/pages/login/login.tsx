@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { FormEvent, useState } from 'react'
 import {
   Button,
   Input
@@ -15,14 +15,15 @@ export const Login = () => {
 
   const dispatch = useDispatch()
 
-  const { loginUserRequest } = useSelector((store) => store.user)
+  const { loginUserRequest } = useSelector((store: any) => store.user)
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
     const data = {
       email: emailValue,
       password: passwordValue
     }
+    // @ts-ignore
     dispatch(login(data))
   }
 

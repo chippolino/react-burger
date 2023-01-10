@@ -2,12 +2,13 @@ import styles from './ingredient-details.module.scss'
 import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { ReactComponent as Loader } from '../../images/page-loader.svg'
+import { TIngredientPropTypes } from '../../utils/prop-types'
 
 const IngredientDetails = () => {
-  const { menu } = useSelector((state) => state.ingredients)
-  const { id } = useParams()
+  const { menu } = useSelector((state: any) => state.ingredients)
+  const { id } = useParams<{ id: string }>()
 
-  const ingredient = menu.find((item) => item._id === id)
+  const ingredient = menu.find((item: TIngredientPropTypes) => item._id === id)
 
   return (
     <div>
