@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { FC } from 'react'
 import styles from './ingredient.module.scss'
 import {
   Counter,
   CurrencyIcon
 } from '@ya.praktikum/react-developer-burger-ui-components'
-import { ingredientPropTypes } from '../../../utils/prop-types'
+import { TIngredientPropTypes } from '../../../utils/prop-types'
 import IngredientDetails from '../../ingredient-details/ingredient-details'
 import useModal from '../../../hooks/use-modal'
 import Modal from '../../modal/modal'
@@ -13,15 +13,18 @@ import { ADD_INGREDIENT } from '../../../services/actions/burger-constructor'
 import { usedCountSelector } from '../../../services/selectors'
 import { useDrag } from 'react-dnd'
 import { v4 as uuid } from 'uuid'
-import {
-  ADD_DATA_TO_MODAL,
-  REMOVE_DATA_MODAL
-} from '../../../services/actions/ingredient-details'
+import { REMOVE_DATA_MODAL } from '../../../services/actions/ingredient-details'
+import { Link, useLocation } from 'react-router-dom'
 
-const Ingredient = (props) => {
+type TIngredient = {
+  ingredient: TIngredientPropTypes
+}
+
+const Ingredient: FC<TIngredient> = (props) => {
   const { ingredient } = props
-  const { isOpen, handleOpen, handleClose } = useModal()
+  const { isOpen, handleClose } = useModal()
 
+  const location = useLocation()
   const dispatch = useDispatch()
   const uniqueId = uuid()
   const handleClick = () => {
@@ -30,11 +33,6 @@ const Ingredient = (props) => {
       ingredient: ingredient,
       uniqueId: uniqueId
     })
-  }
-
-  const handleOpenModal = () => {
-    dispatch({ type: ADD_DATA_TO_MODAL, payload: ingredient })
-    handleOpen()
   }
 
   const handleCloseModal = () => {
@@ -61,8 +59,16 @@ const Ingredient = (props) => {
   const count = useSelector(usedCountSelector(ingredient._id))
   return (
     <>
-      <li className={styles.item} ref={ref} style={{ opacity }}>
-        <span className={styles.item} onClick={() => handleOpenModal()}>
+      <Link
+        to={{
+          pathname: `/ingredients/${ingredient._id}`,
+          state: { background: location }
+        }}
+        className={styles.item}
+        ref={ref}
+        style={{ opacity }}
+      >
+        <span className={styles.item}>
           {count > 0 && <Counter count={+count} size="default" />}
           <img
             className={styles.itemImage}
@@ -83,19 +89,15 @@ const Ingredient = (props) => {
             {ingredient.name}
           </span>
         </span>
-      </li>
+      </Link>
 
       {isOpen && (
         <Modal isOpen={isOpen} handleClose={handleCloseModal}>
-          <IngredientDetails ingredient={ingredient} />
+          <IngredientDetails />
         </Modal>
       )}
     </>
   )
-}
-
-Ingredient.propTypes = {
-  ingredient: ingredientPropTypes.isRequired
 }
 
 export default Ingredient

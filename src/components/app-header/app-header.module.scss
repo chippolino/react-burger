@@ -1,3 +1,5 @@
+@import './src/styles/colors';
+
 .header {
   background: #1c1c21;
 }
@@ -13,6 +15,11 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  color: $static-secondary-text;
+
+  &.active {
+    color: $static-primary-text;
+  }
 }
 
 .menuLeft,

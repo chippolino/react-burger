@@ -1,9 +1,10 @@
+import { FC } from 'react'
 import styles from '../burger-constructor.module.scss'
 import {
   ConstructorElement,
   DragIcon
 } from '@ya.praktikum/react-developer-burger-ui-components'
-import { ingredientPropTypes } from '../../../utils/prop-types'
+import { TIngredientPropTypes } from '../../../utils/prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   DRAGGED_MOVE,
@@ -12,7 +13,11 @@ import {
 import { useDrag, useDrop } from 'react-dnd'
 import { findIndexSelector } from '../../../services/selectors'
 
-const Ingredient = (props) => {
+type TIngredient = {
+  ingredient: TIngredientPropTypes
+}
+
+const Ingredient: FC<TIngredient> = (props) => {
   const { ingredient } = props
 
   const dispatch = useDispatch()
@@ -50,7 +55,7 @@ const Ingredient = (props) => {
   const [, drop] = useDrop(
     () => ({
       accept: 'drag',
-      hover(currentItem) {
+      hover(currentItem: { ingredient: TIngredientPropTypes }) {
         if (currentItem.ingredient.uniqueId !== ingredient.uniqueId) {
           const { index: overIndex } = findIndex
           dispatch({
@@ -83,10 +88,6 @@ const Ingredient = (props) => {
       />
     </li>
   )
-}
-
-Ingredient.propTypes = {
-  ingredient: ingredientPropTypes.isRequired
 }
 
 export default Ingredient

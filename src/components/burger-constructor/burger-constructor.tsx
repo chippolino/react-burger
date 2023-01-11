@@ -14,22 +14,33 @@ import { useDispatch, useSelector } from 'react-redux'
 import { isOrderAvailable, totalCartSelector } from '../../services/selectors'
 import { useDrop } from 'react-dnd'
 import { sendOrder } from '../../services/actions/order-details'
+import { useHistory } from 'react-router-dom'
+import { TIngredientPropTypes } from '../../utils/prop-types'
 
 const BurgerConstructor = () => {
   const { isOpen, handleOpen, handleClose } = useModal()
   const dispatch = useDispatch()
-  const { items, bun } = useSelector((store) => store.burgerConstructor.cart)
-  const { orderDetails, orderDetailsRequest, orderDetailsFailed } = useSelector(
-    (store) => store.orderDetails
+  const { items, bun } = useSelector(
+    (store: any) => store.burgerConstructor.cart
   )
+  const user = useSelector((state: any) => state.user.data)
+  const { orderDetails, orderDetailsRequest, orderDetailsFailed } = useSelector(
+    (store: any) => store.orderDetails
+  )
+  const history = useHistory()
 
   const total = useSelector(totalCartSelector)
 
   const isOrder = useSelector(isOrderAvailable)
 
   const handleSendOrder = () => {
-    dispatch(sendOrder())
-    handleOpen()
+    if (user) {
+      // @ts-ignore
+      dispatch(sendOrder())
+      handleOpen()
+    } else {
+      history.replace({ pathname: '/login' })
+    }
   }
 
   const [{ isOver, canDrop }, dropTarget] = useDrop({
@@ -73,7 +84,7 @@ const BurgerConstructor = () => {
           } ${isActive && styles.isActive}`}
           ref={drop}
         >
-          {items.map((i) => {
+          {items.map((i: TIngredientPropTypes) => {
             return <Ingredient ingredient={i} key={i.uniqueId} />
           })}
         </ul>
@@ -101,6 +112,7 @@ const BurgerConstructor = () => {
           <CurrencyIcon type="primary" />
         </span>
         <Button
+          htmlType="button"
           type="primary"
           size="large"
           onClick={() => handleSendOrder()}
