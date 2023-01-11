@@ -10,6 +10,13 @@ type TUser = {
   name?: string
 }
 
+type TRefreshToken = {
+  success: boolean
+  accessToken: string
+  refreshToken: string
+  message?: string
+}
+
 const loadingInitialData = () => {
   return fetch(`${BASE_URL_API}/ingredients`)
 }
@@ -32,23 +39,29 @@ const refreshToken = () => {
     body: JSON.stringify({
       token: localStorage.getItem('refreshToken')
     })
-  }).then(checkResponse)
+  }).then((res) => checkResponse<TRefreshToken>(res))
 }
 
-const fetchWithRefresh = async (url: string, options: any) => {
+const fetchWithRefresh = async (
+  url: RequestInfo | URL,
+  options: RequestInit | undefined
+) => {
   try {
     const res = await fetch(url, options)
     return await checkResponse(res)
   } catch (err: any) {
     if (err.message === 'jwt expired') {
       const refreshData = await refreshToken()
-      if (!refreshData.success) {
+      if (!refreshData?.success) {
         return Promise.reject(refreshData)
       }
-      localStorage.setItem('refreshToken', refreshData.refreshToken)
+      localStorage.setItem('refreshToken', refreshData?.refreshToken)
       setCookie('accessToken', refreshData.accessToken)
-      options.headers.authorization = refreshData.accessToken
-      const res = await fetch(url, options)
+      const newOptions = {
+        ...options,
+        headers: { ...options?.headers, authorization: refreshData.accessToken }
+      }
+      const res = await fetch(url, newOptions)
       return await checkResponse(res)
     } else {
       return Promise.reject(err)
@@ -75,7 +88,7 @@ const loginUser = (data: TUser) => {
     body: JSON.stringify(data)
   })
     .then(checkResponse)
-    .then((data) => {
+    .then((data: any) => {
       if (data?.success) return data
       return Promise.reject(data)
     })
@@ -94,7 +107,6 @@ const logoutUser = () => {
 }
 
 const getUser = () => {
-  console.log('get user')
   return fetchWithRefresh(`${BASE_URL_API}/auth/user`, {
     method: 'GET',
     headers: {
@@ -116,23 +128,23 @@ const updateUser = (data: TUser) => {
 }
 
 const forgotPassword = (data: TUser) => {
-  return fetchWithRefresh(`${BASE_URL_API}/password-reset`, {
+  return fetch(`${BASE_URL_API}/password-reset`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json;charset=utf-8'
     },
     body: JSON.stringify(data)
-  })
+  }).then((res) => checkResponse<TRefreshToken>(res))
 }
 
 const resetPassword = (data: TUser) => {
-  return fetchWithRefresh(`${BASE_URL_API}/password-reset/reset`, {
+  return fetch(`${BASE_URL_API}/password-reset/reset`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json;charset=utf-8'
     },
     body: JSON.stringify(data)
-  })
+  }).then((res) => checkResponse<TRefreshToken>(res))
 }
 
 export {

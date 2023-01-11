@@ -17,7 +17,7 @@ export const ForgotPassword = () => {
       email: emailValue
     }
     forgotPassword(data).then((res) => {
-      if (res.success === true) {
+      if (res.success) {
         history.replace({
           pathname: '/reset-password',
           state: { resetDone: location }

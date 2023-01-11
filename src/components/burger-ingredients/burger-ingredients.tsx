@@ -39,7 +39,7 @@ const BurgerIngredients = () => {
   }
 
   const handleTabClick = (ref: React.RefObject<HTMLDivElement>) => {
-    ref.current!.scrollIntoView()
+    ref.current?.scrollIntoView()
   }
 
   return (

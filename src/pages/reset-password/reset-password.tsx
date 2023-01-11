@@ -25,7 +25,7 @@ export const ResetPassword = () => {
       token: tokenValue
     }
     resetPassword(data).then((res) => {
-      if (res.success === true) {
+      if (res.success) {
         history.replace({ pathname: '/login' })
       } else {
         console.error(res.message)

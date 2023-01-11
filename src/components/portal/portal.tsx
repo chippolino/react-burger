@@ -27,8 +27,8 @@ function Portal({ children, wrapperId = 'modal-wrapper' }: TPortal) {
       setWrapperElement(element)
 
       return () => {
-        if (element!.parentNode) {
-          element!.parentNode.removeChild(element!)
+        if (element?.parentNode) {
+          element?.parentNode.removeChild(element)
         }
       }
     }

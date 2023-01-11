@@ -68,17 +68,17 @@ export const Profile = () => {
     switch (current) {
       case 'name': {
         setDisabled({ ...disabled, name: !disabled.name })
-        setTimeout(() => nameRef.current!.focus(), 0)
+        setTimeout(() => nameRef.current?.focus(), 0)
         break
       }
       case 'email': {
         setDisabled({ ...disabled, email: !disabled.email })
-        setTimeout(() => emailRef.current!.focus(), 0)
+        setTimeout(() => emailRef.current?.focus(), 0)
         break
       }
       case 'password': {
         setDisabled({ ...disabled, password: !disabled.password })
-        setTimeout(() => passwordRef.current!.focus(), 0)
+        setTimeout(() => passwordRef.current?.focus(), 0)
         break
       }
       default: {
