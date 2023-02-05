@@ -1,0 +1,87 @@
+@import './src/styles/colors';
+
+.root {
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+.textDetails {
+  line-height: 64px;
+}
+
+.bot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.center {
+  text-align: center;
+}
+
+.total {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.time {
+  color: $static-secondary-text;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  gap: 16px;
+  margin-right: 24px;
+
+  &:not(:first-of-type) {
+    margin-top: 16px;
+  }
+}
+
+.list {
+  max-height: 312px;
+  overflow-y: auto;
+}
+
+.image {
+  flex: 0 0 64px;
+  width: 64px;
+  height: 64px;
+  border-radius: 100px;
+  background: linear-gradient(45deg, #801ab2 0%, #4c4cff 100%);
+  position: relative;
+  display: flex;
+
+  &:before {
+    content: '';
+    position: absolute;
+    width: calc(100% - 4px);
+    height: calc(100% - 4px);
+    border-radius: 100px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: $static-bg;
+  }
+
+  img {
+    margin: auto;
+    width: calc(100% - 10px);
+    height: calc(100% - 10px);
+    object-fit: cover;
+    position: relative;
+  }
+}
+
+.total {
+  margin-left: auto;
+  flex: 0 0 auto;
+}
+
+.done {
+  color: $static-success;
+}

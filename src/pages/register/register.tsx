@@ -1,13 +1,9 @@
-import {
-  Button,
-  Input,
-  PasswordInput
-} from '@ya.praktikum/react-developer-burger-ui-components'
+import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Link } from 'react-router-dom'
 import React, { ChangeEvent, FormEvent, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { register } from '../../services/actions/user'
 import { ReactComponent as LoaderIcon } from '../../images/loader.svg'
+import { useDispatch, useSelector } from '../../services/hooks'
 
 const initialFormData = {
   email: '',
@@ -18,8 +14,7 @@ const initialFormData = {
 export const Register = () => {
   const dispatch = useDispatch()
   const [formData, setFormData] = useState(initialFormData)
-  const { registerUserRequest, registerUserError, registerUserFailed } =
-    useSelector((store: any) => store.user)
+  const { registerUserRequest, registerUserError, registerUserFailed } = useSelector((store) => store.user)
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -30,7 +25,6 @@ export const Register = () => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
-    // @ts-ignore
     dispatch(register(formData))
   }
 
@@ -63,33 +57,17 @@ export const Register = () => {
           required
         />
         <div className="mt-6"></div>
-        <PasswordInput
-          onChange={handleChange}
-          value={formData.password}
-          name={'password'}
-          required
-        />
+        <PasswordInput onChange={handleChange} value={formData.password} name={'password'} required />
         <div className={`mt-6 ${registerUserFailed && 'mb-6'}`}>
-          {registerUserFailed && (
-            <p className="text text_type_main-small text_color_error">
-              {registerUserError}
-            </p>
-          )}
+          {registerUserFailed && <p className="text text_type_main-small text_color_error">{registerUserError}</p>}
         </div>
-        <Button
-          htmlType="submit"
-          type="primary"
-          size="medium"
-          disabled={registerUserRequest}
-        >
+        <Button htmlType="submit" type="primary" size="medium" disabled={registerUserRequest}>
           {registerUserRequest ? <LoaderIcon /> : 'Зарегистрироваться'}
         </Button>
       </form>
 
       <div className="loginBox__flex mt-20">
-        <p className="text text_type_main-default text_color_inactive">
-          Уже зарегистрированы?
-        </p>
+        <p className="text text_type_main-default text_color_inactive">Уже зарегистрированы?</p>
         <Link to="/login" className="text text_type_main-default">
           Войти
         </Link>

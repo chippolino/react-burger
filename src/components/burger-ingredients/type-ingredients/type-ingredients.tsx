@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react'
 import styles from './type-ingredients.module.scss'
 import Ingredient from '../ingredient/ingredient'
-import { TIngredientPropTypes } from '../../../utils/prop-types'
+import { TIngredientPropTypes } from '../../../utils/types'
 
 type TTypeIngredients = {
   type: string

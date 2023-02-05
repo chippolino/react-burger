@@ -4,7 +4,7 @@ import {
   ConstructorElement,
   DragIcon
 } from '@ya.praktikum/react-developer-burger-ui-components'
-import { TIngredientPropTypes } from '../../../utils/prop-types'
+import { TIngredientPropTypes } from '../../../utils/types'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   DRAGGED_MOVE,

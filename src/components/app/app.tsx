@@ -1,24 +1,20 @@
 import React, { useEffect } from 'react'
+import { Location } from 'history'
 import { Route, Switch, useHistory, useLocation } from 'react-router-dom'
-import {
-  ForgotPassword,
-  Login,
-  Main,
-  NotFound,
-  Profile,
-  Register,
-  ResetPassword
-} from '../../pages/'
+import { ForgotPassword, Login, Main, NotFound, Profile, Register, ResetPassword } from '../../pages/'
 import { PageLayout } from '../page-layout/page-layout'
-import { useDispatch } from 'react-redux'
+import { useDispatch } from '../../services/hooks'
 import IngredientDetails from '../ingredient-details/ingredient-details'
 import Modal from '../modal/modal'
 import { getMenu } from '../../services/actions/ingredients'
 import { ProtectedRoute } from '../protected-route/protected-route'
 import { checkUserAuth } from '../../services/actions/user'
+import OrderFeed from '../order-feed/order-feed'
+import OrderInfo from '../order-info/order-info'
+import OrderProfile from '../order-profile/order-profile'
 
 type TLocationState = {
-  background: any
+  background: Location
 }
 
 function App() {
@@ -27,10 +23,8 @@ function App() {
   const location = useLocation<TLocationState>()
 
   useEffect(() => {
-    // @ts-ignore
     dispatch(getMenu())
 
-    // @ts-ignore
     dispatch(checkUserAuth())
   }, [dispatch])
 
@@ -56,9 +50,25 @@ function App() {
         <ProtectedRoute path="/profile" exact>
           <Profile />
         </ProtectedRoute>
+        <ProtectedRoute path="/profile/orders" exact>
+          <OrderProfile />
+        </ProtectedRoute>
+        <Route path="/feed" exact>
+          <OrderFeed />
+        </Route>
         <Route path="/ingredients/:id" exact>
           <div className="mt-30">
             <IngredientDetails />
+          </div>
+        </Route>
+        <Route path="/feed/:id" exact>
+          <div className="mt-30">
+            <OrderInfo center key={crypto.randomUUID()} />
+          </div>
+        </Route>
+        <Route path="/profile/orders/:id" exact>
+          <div className="mt-30">
+            <OrderInfo center key={crypto.randomUUID()} />
           </div>
         </Route>
         <Route exact={true} path="/">
@@ -73,6 +83,16 @@ function App() {
           <Route path="/ingredients/:id" exact>
             <Modal isOpen={true} handleClose={handleModalClose}>
               <IngredientDetails />
+            </Modal>
+          </Route>
+          <Route path="/feed/:id" exact>
+            <Modal isOpen={true} handleClose={handleModalClose}>
+              <OrderInfo key={crypto.randomUUID()} />
+            </Modal>
+          </Route>
+          <Route path="/profile/orders/:id" exact>
+            <Modal isOpen={true} handleClose={handleModalClose}>
+              <OrderInfo key={crypto.randomUUID()} />
             </Modal>
           </Route>
         </>

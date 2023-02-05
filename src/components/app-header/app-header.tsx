@@ -1,19 +1,14 @@
 import React from 'react'
-import {
-  Logo,
-  BurgerIcon,
-  ListIcon,
-  ProfileIcon
-} from '@ya.praktikum/react-developer-burger-ui-components'
+import { BurgerIcon, ListIcon, Logo, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './app-header.module.scss'
 import { NavLink, useRouteMatch } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useSelector } from '../../services/hooks'
 
 const AppHeader = () => {
   const isConstructor = !!useRouteMatch({ path: '/', exact: true })
   const isFeed = !!useRouteMatch('/feed')
   const isProfile = !!useRouteMatch('/profile')
-  const user = useSelector((state: any) => state.user.data)
+  const user = useSelector((state) => state.user.data)
 
   return (
     <header className={`pt-4 pb-4 ${styles.header}`}>
