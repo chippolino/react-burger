@@ -1,32 +1,24 @@
 import React from 'react'
 import styles from './burger-constructor.module.scss'
-import {
-  Button,
-  ConstructorElement,
-  CurrencyIcon
-} from '@ya.praktikum/react-developer-burger-ui-components'
+import { Button, ConstructorElement, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { ReactComponent as LoaderIcon } from '../../images/loader.svg'
 import OrderDetails from '../order-details/order-details'
 import Ingredient from './ingredient/ingredient'
 import useModal from '../../hooks/use-modal'
 import Modal from '../modal/modal'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from '../../services/hooks'
 import { isOrderAvailable, totalCartSelector } from '../../services/selectors'
 import { useDrop } from 'react-dnd'
 import { sendOrder } from '../../services/actions/order-details'
 import { useHistory } from 'react-router-dom'
-import { TIngredientPropTypes } from '../../utils/prop-types'
+import { TIngredientPropTypes } from '../../utils/types'
 
 const BurgerConstructor = () => {
   const { isOpen, handleOpen, handleClose } = useModal()
   const dispatch = useDispatch()
-  const { items, bun } = useSelector(
-    (store: any) => store.burgerConstructor.cart
-  )
-  const user = useSelector((state: any) => state.user.data)
-  const { orderDetails, orderDetailsRequest, orderDetailsFailed } = useSelector(
-    (store: any) => store.orderDetails
-  )
+  const { items, bun } = useSelector((store) => store.burgerConstructor)
+  const user = useSelector((state) => state.user.data)
+  const { orderDetails, orderDetailsRequest, orderDetailsFailed } = useSelector((store) => store.orderDetails)
   const history = useHistory()
 
   const total = useSelector(totalCartSelector)
@@ -35,8 +27,9 @@ const BurgerConstructor = () => {
 
   const handleSendOrder = () => {
     if (user) {
-      // @ts-ignore
-      dispatch(sendOrder())
+      const orderArray = [bun._id, items.map((i: TIngredientPropTypes) => i._id), bun._id]
+
+      dispatch(sendOrder(orderArray))
       handleOpen()
     } else {
       history.replace({ pathname: '/login' })
@@ -62,11 +55,7 @@ const BurgerConstructor = () => {
   return (
     <section className="pt-25">
       <ul className={styles.listBurger} ref={dropTarget}>
-        <li
-          className={`${styles.itemBurger} ${canDrop && styles.canDrop} ${
-            isActive && styles.isActive
-          }`}
-        >
+        <li className={`${styles.itemBurger} ${canDrop && styles.canDrop} ${isActive && styles.isActive}`}>
           {bunNotEmpty && (
             <ConstructorElement
               type="top"
@@ -79,9 +68,9 @@ const BurgerConstructor = () => {
         </li>
 
         <ul
-          className={`customScrollbar ${styles.listIngredients} ${
-            canDrop && styles.canDrop
-          } ${isActive && styles.isActive}`}
+          className={`customScrollbar ${styles.listIngredients} ${canDrop && styles.canDrop} ${
+            isActive && styles.isActive
+          }`}
           ref={drop}
         >
           {items.map((i: TIngredientPropTypes) => {
@@ -90,9 +79,9 @@ const BurgerConstructor = () => {
         </ul>
 
         <li
-          className={`${styles.itemBurger} ${styles.listBottomBurger} ${
-            canDrop && styles.canDrop
-          } ${isActive && styles.isActive}`}
+          className={`${styles.itemBurger} ${styles.listBottomBurger} ${canDrop && styles.canDrop} ${
+            isActive && styles.isActive
+          }`}
           ref={dropTarget}
         >
           {bunNotEmpty && (
@@ -111,13 +100,7 @@ const BurgerConstructor = () => {
           {total}
           <CurrencyIcon type="primary" />
         </span>
-        <Button
-          htmlType="button"
-          type="primary"
-          size="large"
-          onClick={() => handleSendOrder()}
-          disabled={!isOrder}
-        >
+        <Button htmlType="button" type="primary" size="large" onClick={() => handleSendOrder()} disabled={!isOrder}>
           {orderDetailsRequest ? <LoaderIcon /> : 'Оформить заказ'}
         </Button>
       </div>
@@ -127,13 +110,11 @@ const BurgerConstructor = () => {
         </p>
       )}
 
-      {!orderDetailsRequest &&
-        !orderDetailsFailed &&
-        Object.keys(orderDetails).length > 0 && (
-          <Modal isOpen={isOpen} handleClose={handleClose}>
-            <OrderDetails />
-          </Modal>
-        )}
+      {!orderDetailsRequest && !orderDetailsFailed && Object.keys(orderDetails).length > 0 && (
+        <Modal isOpen={isOpen} handleClose={handleClose}>
+          <OrderDetails />
+        </Modal>
+      )}
     </section>
   )
 }

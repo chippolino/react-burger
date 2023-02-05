@@ -1,0 +1,46 @@
+@import './src/styles/colors';
+
+.list {
+  height: calc(100vh - 188px);
+  scroll-behavior: smooth;
+  overflow-y: auto;
+}
+
+.flex {
+  display: flex;
+  gap: 36px;
+
+  > div {
+    width: 100%;
+  }
+}
+
+.block {
+  display: flex;
+  gap: 60px;
+
+  > section {
+    width: 100%;
+  }
+}
+
+.number {
+  color: $static-primary-text;
+  text-shadow: $static-text-shadow;
+}
+
+.listOrder {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-height: 320px;
+  overflow: hidden;
+  list-style-type: none;
+  overflow-x: auto;
+}
+
+.orderNumber {
+  color: $static-success;
+}

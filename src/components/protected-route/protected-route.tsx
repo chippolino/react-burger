@@ -1,8 +1,8 @@
-import { useSelector } from 'react-redux'
 import { Redirect, Route, useLocation } from 'react-router-dom'
 
 import { ReactComponent as Loader } from '../../images/page-loader.svg'
 import { FC, ReactNode } from 'react'
+import { useSelector } from '../../services/hooks'
 
 type TLocationState = {
   from: {
@@ -17,13 +17,9 @@ type TProtectedRoute = {
   exact?: boolean
 }
 
-export const ProtectedRoute: FC<TProtectedRoute> = ({
-  onlyUnAuth = false,
-  children,
-  ...rest
-}) => {
-  const isAuthChecked = useSelector((state: any) => state.user.isAuthChecked)
-  const user = useSelector((state: any) => state.user.data)
+export const ProtectedRoute: FC<TProtectedRoute> = ({ onlyUnAuth = false, children, ...rest }) => {
+  const isAuthChecked = useSelector((state) => state.user.isAuthChecked)
+  const user = useSelector((state) => state.user.data)
   const location = useLocation<TLocationState>()
 
   if (!isAuthChecked) {

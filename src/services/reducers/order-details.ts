@@ -1,17 +1,25 @@
 import {
   SEND_CHECKOUT_FAILED,
   SEND_CHECKOUT_REQUEST,
-  SEND_CHECKOUT_SUCCESS
+  SEND_CHECKOUT_SUCCESS,
+  TSendCheckoutActions
 } from '../actions/order-details'
 
-const initialState = {
+export type TOrderDetailsState = {
+  orderDetails: any
+  orderDetailsRequest: boolean
+  orderDetailsFailed: boolean
+  orderDetailsError: string | null
+}
+
+const initialState: TOrderDetailsState = {
   orderDetails: {},
   orderDetailsRequest: false,
   orderDetailsFailed: false,
   orderDetailsError: null
 }
 
-export const orderDetailsReducer = (state = initialState, action) => {
+export const orderDetailsReducer = (state = initialState, action: TSendCheckoutActions) => {
   switch (action.type) {
     case SEND_CHECKOUT_REQUEST: {
       return { ...state, orderDetailsRequest: true }

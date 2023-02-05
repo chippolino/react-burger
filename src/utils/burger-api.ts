@@ -1,8 +1,9 @@
 import { checkResponse } from './check-response'
 import { getCookie, setCookie } from './cookie'
-import { TIngredientPropTypes } from './prop-types'
+import { TIngredientPropTypes } from './types'
 
 const BASE_URL_API = 'https://norma.nomoreparties.space/api'
+export const BASE_URL_ORDERS = 'wss://norma.nomoreparties.space/orders'
 
 type TUser = {
   email?: string
@@ -10,7 +11,7 @@ type TUser = {
   name?: string
 }
 
-type TRefreshToken = {
+export type TRefreshToken = {
   success: boolean
   accessToken: string
   refreshToken: string
@@ -21,10 +22,13 @@ const loadingInitialData = () => {
   return fetch(`${BASE_URL_API}/ingredients`)
 }
 
-const makeOrder = (ingredients: TIngredientPropTypes) => {
+const makeOrder = (ingredients: TIngredientPropTypes[]) => {
   const requestOptions = {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      authorization: getCookie('accessToken')
+    },
     body: JSON.stringify({ ingredients })
   }
   return fetch(`${BASE_URL_API}/orders`, requestOptions)
@@ -42,10 +46,7 @@ const refreshToken = () => {
   }).then((res) => checkResponse<TRefreshToken>(res))
 }
 
-const fetchWithRefresh = async (
-  url: RequestInfo | URL,
-  options: RequestInit | undefined
-) => {
+const fetchWithRefresh = async (url: RequestInfo | URL, options: RequestInit | undefined) => {
   try {
     const res = await fetch(url, options)
     return await checkResponse(res)

@@ -1,17 +1,30 @@
 import {
   GET_MENU_FAILED,
   GET_MENU_REQUEST,
-  GET_MENU_SUCCESS
+  GET_MENU_SUCCESS,
+  TMenuActions
 } from '../actions/ingredients'
+import { TIngredientPropTypes } from '../../utils/types'
 
-const initialState = {
+export type TIngredientsState = {
+  menu: Array<TIngredientPropTypes>
+
+  menuRequest: boolean
+  menuFailed: boolean
+  menuFailedError: string | null
+}
+
+const initialState: TIngredientsState = {
   menu: [],
   menuRequest: false,
   menuFailed: false,
   menuFailedError: null
 }
 
-export const ingredientsReducer = (state = initialState, action) => {
+export const ingredientsReducer = (
+  state = initialState,
+  action: TMenuActions
+) => {
   switch (action.type) {
     case GET_MENU_REQUEST: {
       return { ...state, menuRequest: true }

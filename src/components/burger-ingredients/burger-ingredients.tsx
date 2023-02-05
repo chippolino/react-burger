@@ -3,10 +3,10 @@ import styles from './burger-ingredients.module.scss'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import { ingredientTypes } from '../../utils/ingredient-types'
 import TypeIngredients from './type-ingredients/type-ingredients'
-import { useSelector } from 'react-redux'
+import { useSelector } from '../../services/hooks'
 
 const BurgerIngredients = () => {
-  const { menu } = useSelector((store: any) => store.ingredients)
+  const { menu } = useSelector((store) => store.ingredients)
 
   const mainRef = useRef<HTMLDivElement>(null)
   const bunRef = useRef<HTMLDivElement>(null)
@@ -70,24 +70,9 @@ const BurgerIngredients = () => {
       </div>
 
       <div className={`customScrollbar ${styles.wrapper}`}>
-        <TypeIngredients
-          type={ingredientTypes.bun}
-          title="Булки"
-          ingredients={menu}
-          ref={bunRef}
-        />
-        <TypeIngredients
-          type={ingredientTypes.sauce}
-          title="Соусы"
-          ingredients={menu}
-          ref={sauceRef}
-        />
-        <TypeIngredients
-          type={ingredientTypes.main}
-          title="Начинки"
-          ingredients={menu}
-          ref={mainRef}
-        />
+        <TypeIngredients type={ingredientTypes.bun} title="Булки" ingredients={menu} ref={bunRef} />
+        <TypeIngredients type={ingredientTypes.sauce} title="Соусы" ingredients={menu} ref={sauceRef} />
+        <TypeIngredients type={ingredientTypes.main} title="Начинки" ingredients={menu} ref={mainRef} />
       </div>
     </section>
   )

@@ -1,10 +1,7 @@
 import React, { FormEvent, useState } from 'react'
-import {
-  Button,
-  Input
-} from '@ya.praktikum/react-developer-burger-ui-components'
+import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Link } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from '../../services/hooks'
 import { login } from '../../services/actions/user'
 import { ReactComponent as LoaderIcon } from '../../images/loader.svg'
 
@@ -15,7 +12,7 @@ export const Login = () => {
 
   const dispatch = useDispatch()
 
-  const { loginUserRequest } = useSelector((store: any) => store.user)
+  const { loginUserRequest } = useSelector((store) => store.user)
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
@@ -23,7 +20,6 @@ export const Login = () => {
       email: emailValue,
       password: passwordValue
     }
-    // @ts-ignore
     dispatch(login(data))
   }
 
@@ -53,27 +49,18 @@ export const Login = () => {
           required
         />
         <div className="mt-6"></div>
-        <Button
-          htmlType="submit"
-          type="primary"
-          size="medium"
-          disabled={loginUserRequest}
-        >
+        <Button htmlType="submit" type="primary" size="medium" disabled={loginUserRequest}>
           {loginUserRequest ? <LoaderIcon /> : 'Войти'}
         </Button>
 
         <div className="loginBox__flex mt-20">
-          <p className="text text_type_main-default text_color_inactive">
-            Вы — новый пользователь?
-          </p>
+          <p className="text text_type_main-default text_color_inactive">Вы — новый пользователь?</p>
           <Link to="/register" className="text text_type_main-default">
             Зарегистрироваться
           </Link>
         </div>
         <div className="loginBox__flex mt-4">
-          <p className="text text_type_main-default text_color_inactive">
-            Забыли пароль?
-          </p>
+          <p className="text text_type_main-default text_color_inactive">Забыли пароль?</p>
           <Link to="/forgot-password" className="text text_type_main-default">
             Восстановить пароль
           </Link>

@@ -4,16 +4,12 @@ import {
   Counter,
   CurrencyIcon
 } from '@ya.praktikum/react-developer-burger-ui-components'
-import { TIngredientPropTypes } from '../../../utils/prop-types'
-import IngredientDetails from '../../ingredient-details/ingredient-details'
-import useModal from '../../../hooks/use-modal'
-import Modal from '../../modal/modal'
+import { TIngredientPropTypes } from '../../../utils/types'
 import { useDispatch, useSelector } from 'react-redux'
 import { ADD_INGREDIENT } from '../../../services/actions/burger-constructor'
 import { usedCountSelector } from '../../../services/selectors'
 import { useDrag } from 'react-dnd'
 import { v4 as uuid } from 'uuid'
-import { REMOVE_DATA_MODAL } from '../../../services/actions/ingredient-details'
 import { Link, useLocation } from 'react-router-dom'
 
 type TIngredient = {
@@ -22,7 +18,6 @@ type TIngredient = {
 
 const Ingredient: FC<TIngredient> = (props) => {
   const { ingredient } = props
-  const { isOpen, handleClose } = useModal()
 
   const location = useLocation()
   const dispatch = useDispatch()
@@ -33,13 +28,6 @@ const Ingredient: FC<TIngredient> = (props) => {
       ingredient: ingredient,
       uniqueId: uniqueId
     })
-  }
-
-  const handleCloseModal = () => {
-    dispatch({
-      type: REMOVE_DATA_MODAL
-    })
-    handleClose()
   }
 
   const [{ opacity }, ref] = useDrag({
@@ -90,12 +78,6 @@ const Ingredient: FC<TIngredient> = (props) => {
           </span>
         </span>
       </Link>
-
-      {isOpen && (
-        <Modal isOpen={isOpen} handleClose={handleCloseModal}>
-          <IngredientDetails />
-        </Modal>
-      )}
     </>
   )
 }
