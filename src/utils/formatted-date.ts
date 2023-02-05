@@ -1,37 +1,36 @@
-export const formattedDate = (date: string | undefined) => {
-  if (typeof date === 'string') {
-    const hours = () => {
-      if (new Date(date).getHours() < 10) {
-        return '0' + new Date(date).getHours()
-      }
-      if (new Date(date).getHours() >= 10) {
-        return new Date(date).getHours()
-      }
-    }
+function getRalativeTimeString(date: Date | number, lang = navigator.language) {
+  const timeMs = typeof date === 'number' ? date : date.getTime()
 
-    const minutes = () => {
-      if (new Date(date).getMinutes() < 10) {
-        return '0' + new Date(date).getMinutes()
-      }
-      if (new Date(date).getMinutes() >= 10) {
-        return new Date(date).getMinutes()
-      }
-    }
+  const deltaSeconds = Math.round((timeMs - Date.now()) / 1000)
 
-    if (new Date().getDate() - new Date(date).getDate() === 0) {
-      return 'Сегодня, ' + hours() + ':' + minutes()
-    }
+  const cutoffs = [60, 3600, 86400, 86400 * 7, 86400 * 30, 86400 * 365, Infinity]
 
-    if (new Date().getDate() - new Date(date).getDate() <= 1) {
-      return 'Вчера, ' + hours() + ':' + minutes()
-    }
+  const units: Intl.RelativeTimeFormatUnit[] = ['second', 'minute', 'hour', 'day', 'week', 'month', 'year']
 
-    if (new Date().getDate() - new Date(date).getDate() > 1) {
-      return new Date().getDate() - new Date(date).getDate() + ' дня назад, ' + hours() + ':' + minutes()
-    }
+  const unitIndex = cutoffs.findIndex((cutoff) => cutoff > Math.abs(deltaSeconds))
 
-    if (new Date().getDate() - new Date(date).getDate() > 4) {
-      return new Date().getDate() - new Date(date).getDate() + ' дней назад, ' + hours() + ':' + minutes()
-    }
+  const divisor = unitIndex ? cutoffs[unitIndex - 1] : 1
+
+  const rtf = new Intl.RelativeTimeFormat(lang, { numeric: 'auto' })
+
+  return rtf.format(Math.floor(deltaSeconds / divisor), units[unitIndex])
+}
+
+const formatDateTime = ({ locale = [], date = Date.now(), ...options }: any = {}) =>
+  new Intl.DateTimeFormat(locale, options).format(date)
+
+export const formattedDate = (date: Date | string | undefined) => {
+  if (date) {
+    return (
+      getRalativeTimeString(new Date(date), 'ru') +
+      ', ' +
+      formatDateTime({
+        date: new Date(date),
+        locale: 'ru',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      })
+    )
   }
 }
