@@ -1,9 +1,4 @@
-import {
-  GET_MENU_FAILED,
-  GET_MENU_REQUEST,
-  GET_MENU_SUCCESS,
-  TMenuActions
-} from '../actions/ingredients'
+import { GET_MENU_FAILED, GET_MENU_REQUEST, GET_MENU_SUCCESS, TMenuActions } from '../actions/ingredients'
 import { TIngredientPropTypes } from '../../utils/types'
 
 export type TIngredientsState = {
@@ -11,20 +6,15 @@ export type TIngredientsState = {
 
   menuRequest: boolean
   menuFailed: boolean
-  menuFailedError: string | null
 }
 
-const initialState: TIngredientsState = {
+export const initialState: TIngredientsState = {
   menu: [],
   menuRequest: false,
-  menuFailed: false,
-  menuFailedError: null
+  menuFailed: false
 }
 
-export const ingredientsReducer = (
-  state = initialState,
-  action: TMenuActions
-) => {
+export const ingredientsReducer = (state = initialState, action: TMenuActions) => {
   switch (action.type) {
     case GET_MENU_REQUEST: {
       return { ...state, menuRequest: true }
@@ -41,8 +31,7 @@ export const ingredientsReducer = (
       return {
         ...state,
         menuFailed: true,
-        menuRequest: false,
-        menuFailedError: action.error
+        menuRequest: false
       }
     }
     default: {

@@ -25,7 +25,7 @@ export const usedCountSelector = (id: string) => (state: RootState) => {
   }
 }
 
-export const findIndexSelector = (id: string) => (state: RootState) => {
+export const findIndexSelector = (id: string | undefined) => (state: RootState) => {
   const cartItems = state.burgerConstructor.items
   const item = cartItems.filter((i) => i.uniqueId === id)[0]
   return {

@@ -9,14 +9,12 @@ export type TOrderDetailsState = {
   orderDetails: any
   orderDetailsRequest: boolean
   orderDetailsFailed: boolean
-  orderDetailsError: string | null
 }
 
-const initialState: TOrderDetailsState = {
+export const initialState: TOrderDetailsState = {
   orderDetails: {},
   orderDetailsRequest: false,
-  orderDetailsFailed: false,
-  orderDetailsError: null
+  orderDetailsFailed: false
 }
 
 export const orderDetailsReducer = (state = initialState, action: TSendCheckoutActions) => {
@@ -36,8 +34,7 @@ export const orderDetailsReducer = (state = initialState, action: TSendCheckoutA
       return {
         ...state,
         orderDetailsFailed: true,
-        orderDetailsRequest: false,
-        orderDetailsError: action.error
+        orderDetailsRequest: false
       }
     }
     default: {

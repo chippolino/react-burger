@@ -12,7 +12,7 @@ type TBurgerConstructorState = {
   items: Array<TIngredientPropTypes>
 }
 
-const initialState: TBurgerConstructorState = {
+export const initialState: TBurgerConstructorState = {
   bun: {} as TIngredientPropTypes,
   items: []
 }
@@ -59,7 +59,6 @@ export const burgerConstructorReducer = (state = initialState, action: TBurgerCo
     case DRAGGED_MOVE: {
       const newCartItems = [...state.items]
       const currentItem = action.currentItem
-      console.log(currentItem)
       const overIndex = action.overIndex
       const currentIndex = newCartItems.findIndex((i) => i.uniqueId === currentItem.ingredient.uniqueId)
       newCartItems.splice(currentIndex, 1)
