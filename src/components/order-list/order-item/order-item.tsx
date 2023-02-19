@@ -56,7 +56,11 @@ const OrderItem = (props: TOrderProps) => {
       <div className={`${styles.flex} mt-6`}>
         <div className={styles.images}>
           {ingredients.slice(0, 6).map((item, index) => (
-            <div className={`${styles.image} ${countIng > 0 && index === 5 ? styles.last : ''}`} data-count={countIng}>
+            <div
+              key={crypto.randomUUID()}
+              className={`${styles.image} ${countIng > 0 && index === 5 ? styles.last : ''}`}
+              data-count={countIng}
+            >
               <img src={item?.image_mobile} alt={item?.name} />
             </div>
           ))}

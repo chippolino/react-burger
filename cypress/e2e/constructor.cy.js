@@ -33,7 +33,7 @@ describe('Создание заказа', () => {
 
   it('Авторизация', () => {
     cy.viewport(1920, 1080)
-    cy.visit('http://localhost:3000/login')
+    cy.visit('http://localhost:3000/#/login')
     cy.get('[name=email]').focus().type('test292292@ya.ru')
     cy.get('[name=password]').focus().type('12345678')
     cy.get('button').contains('Войти').click()
