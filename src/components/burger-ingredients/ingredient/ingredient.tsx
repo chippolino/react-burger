@@ -1,9 +1,6 @@
 import React, { FC } from 'react'
 import styles from './ingredient.module.scss'
-import {
-  Counter,
-  CurrencyIcon
-} from '@ya.praktikum/react-developer-burger-ui-components'
+import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { TIngredientPropTypes } from '../../../utils/types'
 import { useDispatch, useSelector } from 'react-redux'
 import { ADD_INGREDIENT } from '../../../services/actions/burger-constructor'
@@ -56,7 +53,7 @@ const Ingredient: FC<TIngredient> = (props) => {
         ref={ref}
         style={{ opacity }}
       >
-        <span className={styles.item}>
+        <span className={styles.item} data-cy-test="ingredient">
           {count > 0 && <Counter count={+count} size="default" />}
           <img
             className={styles.itemImage}
@@ -65,17 +62,11 @@ const Ingredient: FC<TIngredient> = (props) => {
             width={240}
             height={120}
           />
-          <span
-            className={`${styles.itemPrice} mt-1 text text_type_digits-default`}
-          >
+          <span className={`${styles.itemPrice} mt-1 text text_type_digits-default`}>
             {ingredient.price}
             <CurrencyIcon type="primary" />
           </span>
-          <span
-            className={`text text_type_main-default ${styles.itemText} mt-1`}
-          >
-            {ingredient.name}
-          </span>
+          <span className={`text text_type_main-default ${styles.itemText} mt-1`}>{ingredient.name}</span>
         </span>
       </Link>
     </>

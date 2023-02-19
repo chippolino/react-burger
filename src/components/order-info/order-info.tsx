@@ -71,7 +71,7 @@ const OrderInfo = (props: TOrderInfoProps) => {
       <p className={`text text_type_main-medium mt-15`}>Состав:</p>
       <ul className={`customScrollbar mt-6 ${styles.list}`}>
         {ingredients?.map((item) => (
-          <li className={`${styles.item}`}>
+          <li className={`${styles.item}`} key={crypto.randomUUID()}>
             <div className={styles.image}>
               <img src={item?.image_mobile} alt={item?.name} />
             </div>

@@ -39,7 +39,7 @@ export type TUserState = {
   getUserFailed: boolean
 }
 
-const initialState: TUserState = {
+export const initialState: TUserState = {
   isAuthChecked: false,
 
   data: null,
@@ -110,6 +110,7 @@ export const userReducer = (state = initialState, action: TUserActions) => {
       return {
         ...state,
         loginUserFailed: true,
+        loginUserRequest: false,
         loginUserError: action.error
       }
     }
@@ -132,6 +133,7 @@ export const userReducer = (state = initialState, action: TUserActions) => {
       return {
         ...state,
         getUserFailed: true,
+        getUserRequest: false,
         getUserError: action.error
       }
     }
@@ -154,6 +156,7 @@ export const userReducer = (state = initialState, action: TUserActions) => {
       return {
         ...state,
         updateUserFailed: true,
+        updateUserRequest: false,
         updateUserError: action.error
       }
     }

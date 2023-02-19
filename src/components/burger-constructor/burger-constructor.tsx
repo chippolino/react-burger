@@ -72,6 +72,7 @@ const BurgerConstructor = () => {
             isActive && styles.isActive
           }`}
           ref={drop}
+          data-cy-test="ingredient-in-constructor"
         >
           {items.map((i: TIngredientPropTypes) => {
             return <Ingredient ingredient={i} key={i.uniqueId} />

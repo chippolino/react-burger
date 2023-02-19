@@ -1,17 +1,11 @@
 import { FC } from 'react'
 import styles from '../burger-constructor.module.scss'
-import {
-  ConstructorElement,
-  DragIcon
-} from '@ya.praktikum/react-developer-burger-ui-components'
+import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { TIngredientPropTypes } from '../../../utils/types'
-import { useDispatch, useSelector } from 'react-redux'
-import {
-  DRAGGED_MOVE,
-  REMOVE_INGREDIENT
-} from '../../../services/actions/burger-constructor'
+import { DRAGGED_MOVE, REMOVE_INGREDIENT } from '../../../services/actions/burger-constructor'
 import { useDrag, useDrop } from 'react-dnd'
 import { findIndexSelector } from '../../../services/selectors'
+import { useDispatch, useSelector } from '../../../services/hooks'
 
 type TIngredient = {
   ingredient: TIngredientPropTypes
@@ -23,6 +17,7 @@ const Ingredient: FC<TIngredient> = (props) => {
   const dispatch = useDispatch()
 
   const handleRemoveIngredient = () => {
+    // @ts-ignore
     dispatch({
       type: REMOVE_INGREDIENT,
       payload: ingredient.uniqueId
@@ -58,6 +53,7 @@ const Ingredient: FC<TIngredient> = (props) => {
       hover(currentItem: { ingredient: TIngredientPropTypes }) {
         if (currentItem.ingredient.uniqueId !== ingredient.uniqueId) {
           const { index: overIndex } = findIndex
+          // @ts-ignore
           dispatch({
             type: DRAGGED_MOVE,
             currentItem: currentItem,
@@ -72,11 +68,7 @@ const Ingredient: FC<TIngredient> = (props) => {
   const opacity = isDragging ? 0 : 1
 
   return (
-    <li
-      className={styles.itemIngredients}
-      ref={(node) => drag(drop(node))}
-      style={{ opacity }}
-    >
+    <li className={styles.itemIngredients} ref={(node) => drag(drop(node))} style={{ opacity }}>
       <span className={styles.dragArea}>
         <DragIcon type="primary" />
       </span>
